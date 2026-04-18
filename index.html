@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Sharp by Dylan — Professional Knife Sharpening</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg-page:        #EDEBE6;
+  --bg-page-mid:    #DDD9D1;
+  --bg-page-dark:   #C8C3B8;
+  --bg-card:        #0F1012;
+  --bg-card-mid:    #171A1F;
+  --bg-card-accent: #1E2128;
+  --gold:       #C9A84C;
+  --gold-light: #E8C96A;
+  --gold-dim:   #8B7035;
+  --on-dark-high:   rgba(255, 255, 255, 0.88);
+  --on-dark-mid:    rgba(255, 255, 255, 0.52);
+  --on-dark-low:    rgba(255, 255, 255, 0.30);
+  --border-dark:    rgba(255, 255, 255, 0.07);
+  --border-gold:    rgba(201, 168, 76, 0.22);
+  --text-primary:   #0D0F12;
+  --text-secondary: #4A4840;
+  --text-muted:     #8A8478;
+  --white: #FFFFFF;
+  --radius-lg:  24px;
+  --radius-2xl: 40px;
+  --safe-top:    env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; scrollbar-width: thin; scrollbar-color: var(--gold) transparent; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+::-webkit-scrollbar       { width: 3px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 2px; }
+
+body { font-family: 'DM Sans', sans-serif; background: var(--bg-page); color: var(--text-primary); overflow-x: hidden; min-width: 320px; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+
+#scroll-progress { position: fixed; top: 0; left: 0; height: 2px; width: 0%; z-index: 200; background: linear-gradient(90deg, var(--gold-dim), var(--gold), var(--gold-light)); pointer-events: none; box-shadow: 0 0 10px rgba(201, 168, 76, 0.5); }
+
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 0 clamp(20px, 4vw, 56px); padding-top: var(--safe-top); height: calc(72px + var(--safe-top)); display: flex; align-items: center; justify-content: space-between; background: rgba(237, 235, 230, 0.78); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid rgba(200, 195, 184, 0.5); transition: background 0.3s; }
+.nav-logo { font-family: 'Syne', sans-serif; font-weight: 800; text-transform: uppercase; text-decoration: none; display: flex; flex-direction: column; line-height: 1.1; flex-shrink: 0; }
+.nav-logo .logo-sharp { font-size: 1.15rem; letter-spacing: 0.2em; color: var(--text-primary); transition: all 0.35s; }
+.nav-logo:hover .logo-sharp { background: linear-gradient(135deg, var(--gold), var(--gold-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.nav-logo .logo-by { font-size: 0.58rem; font-weight: 500; letter-spacing: 0.35em; color: var(--text-muted); transition: letter-spacing 0.4s, color 0.35s; }
+.nav-logo:hover .logo-by { letter-spacing: 0.48em; color: var(--gold-dim); }
+.nav-links { display: flex; align-items: center; gap: 40px; list-style: none; }
+.nav-links a { text-decoration: none; font-size: 0.85rem; font-weight: 500; letter-spacing: 0.05em; color: var(--text-secondary); transition: color 0.2s; white-space: nowrap; }
+.nav-links a:hover { color: var(--text-primary); }
+.nav-cta { background: var(--gold) !important; color: var(--bg-card) !important; padding: 10px 22px !important; border-radius: 100px !important; font-size: 0.82rem !important; font-weight: 600 !important; transition: transform 0.15s, background 0.2s, box-shadow 0.2s !important; box-shadow: 0 4px 16px rgba(201, 168, 76, 0.25) !important; }
+.nav-cta:hover { background: var(--gold-light) !important; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(201, 168, 76, 0.35) !important; }
+
+.hero-splash { min-height: 100vh; min-height: 100dvh; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; padding: 0 clamp(24px, 5vw, 72px); position: relative; overflow: hidden; }
+.hero-splash::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--bg-page-dark), transparent); z-index: 1; }
+.hero-glow { position: absolute; top: 50%; left: 10%; transform: translate(-10%, -50%); width: 60vw; height: 60vh; background: radial-gradient(ellipse at center, rgba(201, 168, 76, 0.065) 0%, transparent 70%); pointer-events: none; z-index: 0; animation: glowPulse 4s ease-in-out infinite 1s; }
+@keyframes glowPulse { 0%, 100% { opacity: 0.6; transform: translate(-10%, -50%) scale(1); } 50% { opacity: 1; transform: translate(-10%, -50%) scale(1.08); } }
+.hero-scan { position: absolute; top: 0; bottom: 0; left: 0; width: 1px; background: linear-gradient(180deg, transparent, var(--gold), transparent); opacity: 0; animation: scanSweep 0.6s ease forwards 0.55s; pointer-events: none; z-index: 2; }
+@keyframes scanSweep { 0% { left: 0; opacity: 0.6; } 70% { opacity: 0.4; } 100% { left: 100%; opacity: 0; } }
+.hero-byline { display: inline-flex; align-items: center; gap: 12px; margin-top: 12px; margin-bottom: 12px; margin-left: 6px; cursor: default; opacity: 0; transform: translateY(16px); animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.45s; position: relative; z-index: 1; }
+.hero-byline-line { width: 0; height: 1px; background: linear-gradient(90deg, var(--gold), transparent); transition: width 0.55s cubic-bezier(0.16, 1, 0.3, 1); flex-shrink: 0; }
+.hero-byline:hover .hero-byline-line { width: 48px; }
+.hero-byline-text { font-family: 'DM Mono', monospace; font-size: 0.88rem; letter-spacing: 0.38em; text-transform: uppercase; color: var(--text-muted); transition: color 0.45s, letter-spacing 0.55s cubic-bezier(0.16, 1, 0.3, 1); }
+.hero-byline:hover .hero-byline-text { color: var(--gold); letter-spacing: 0.55em; }
+.hero-wordmark-sharp { font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(3.5rem, 13.5vw, 13rem); letter-spacing: -0.03em; color: var(--text-primary); line-height: 0.88; display: block; position: relative; z-index: 1; }
+.sharp-letter { display: inline-block; opacity: 0; transform: translateY(60px) rotateX(-40deg); animation: letterIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards; transform-origin: bottom center; }
+.hero-wordmark-sharp:hover .sharp-letter { background: linear-gradient(135deg, var(--gold), var(--gold-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; transition: all 0.3s; }
+@keyframes letterIn { 0% { opacity: 0; transform: translateY(60px) rotateX(-40deg); } 60% { opacity: 1; } 100% { opacity: 1; transform: translateY(0) rotateX(0deg); } }
+.sharp-letter:nth-child(1) { animation-delay: 0.05s; }
+.sharp-letter:nth-child(2) { animation-delay: 0.14s; }
+.sharp-letter:nth-child(3) { animation-delay: 0.23s; }
+.sharp-letter:nth-child(4) { animation-delay: 0.32s; }
+.sharp-letter:nth-child(5) { animation-delay: 0.41s; }
+.hero-subtitle { font-size: clamp(0.9rem, 1.4vw, 1.15rem); font-weight: 300; color: var(--text-secondary); letter-spacing: 0.04em; margin-top: 20px; margin-left: 6px; max-width: 440px; line-height: 1.6; position: relative; z-index: 1; opacity: 0; transform: translateY(16px); animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.65s; }
+.scroll-hint { position: absolute; bottom: 48px; left: clamp(24px, 5vw, 72px); z-index: 1; display: flex; align-items: center; gap: 16px; opacity: 0; animation: fadeIn 1s ease forwards 1.6s; transition: opacity 0.4s ease; }
+.scroll-hint.faded { opacity: 0 !important; pointer-events: none; }
+.scroll-hint span { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--text-muted); }
+.scroll-line { width: 40px; height: 1px; background: var(--bg-page-dark); position: relative; overflow: hidden; }
+.scroll-line::after { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: var(--gold); animation: scrollSlide 2.4s ease-in-out infinite 2s; }
+@keyframes scrollSlide { 0% { left: -100%; } 50% { left: 100%; } 100% { left: 100%; } }
+.hero-stats-splash { position: absolute; bottom: 48px; right: clamp(24px, 5vw, 72px); display: flex; gap: clamp(24px, 3.5vw, 56px); z-index: 1; opacity: 0; animation: fadeIn 1s ease forwards 1.2s; }
+.stat { text-align: right; }
+.stat-num { font-family: 'DM Mono', monospace; font-size: clamp(1.4rem, 2.2vw, 2rem); font-weight: 500; color: var(--text-primary); line-height: 1; }
+.stat-label { font-size: 0.67rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); margin-top: 5px; white-space: nowrap; }
+@keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeIn { to { opacity: 1; } }
+
+.hero-tagline-section { padding: 80px clamp(24px, 5vw, 72px) 64px; display: flex; gap: clamp(80px, 15vw, 160px); align-items: center; justify-content: space-between; border-bottom: 1px solid var(--bg-page-mid); }
+.ht-headline { font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(2rem, 4.5vw, 4rem); line-height: 1; letter-spacing: -0.03em; color: var(--text-primary); flex: 0 0 auto; min-width: 0; }
+.ht-headline em { font-style: normal; background: linear-gradient(135deg, var(--gold), var(--gold-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero-tagline-right { flex: 0 0 auto; min-width: 0; display: flex; justify-content: center; }
+.cta-row { display: flex; align-items: center; gap: 28px; flex-wrap: wrap; }
+
+.btn-primary { display: inline-flex; align-items: center; gap: 10px; background: var(--bg-card); color: var(--white); padding: 20px 40px; border-radius: 100px; font-size: 1rem; font-weight: 500; text-decoration: none; letter-spacing: 0.03em; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); white-space: nowrap; }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3); }
+.btn-secondary { display: inline-flex; align-items: center; gap: 8px; color: var(--text-primary); font-size: 1rem; font-weight: 500; text-decoration: none; letter-spacing: 0.02em; border: 1.5px solid var(--text-primary); padding: 14px 24px; border-radius: 100px; background: transparent; transition: all 0.2s; white-space: nowrap; }
+.btn-secondary:hover { background: var(--bg-card); border-color: var(--gold); color: var(--gold); }
+.btn-secondary::after { content: '\2192'; display: inline-block; transition: transform 0.2s; }
+.btn-secondary:hover::after { transform: translateX(4px); }
+
+section { padding: 48px clamp(20px, 4vw, 56px); }
+section[id], div[id].knife-section-wrap { scroll-margin-top: 88px; }
+.section-label { font-family: 'DM Mono', monospace; font-size: 0.67rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; display: block; }
+.reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.watermark { position: absolute; font-family: 'Syne', sans-serif; font-weight: 800; color: rgba(255, 255, 255, 0.025); letter-spacing: 0.08em; pointer-events: none; user-select: none; white-space: nowrap; line-height: 1; }
+.highlight-card { background: var(--bg-card-mid); border: 1px solid var(--border-dark); border-radius: var(--radius-lg); padding: 24px 32px; position: relative; overflow: hidden; display: flex; flex-direction: column; }
+.highlight-card h3 { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; color: var(--gold); margin-bottom: 10px; }
+.highlight-card p { font-size: 0.82rem; line-height: 1.65; color: var(--on-dark-mid); font-weight: 300; }
+
+.knife-section-wrap { display: flex; align-items: stretch; margin: 64px clamp(20px, 4vw, 56px) 0; background: var(--bg-card); border-radius: var(--radius-2xl); overflow: hidden; }
+.knife-left { flex: 0 0 45%; padding: clamp(32px, 4vw, 64px) clamp(24px, 3.5vw, 56px) clamp(32px, 4vw, 64px) clamp(28px, 4.5vw, 72px); display: flex; flex-direction: column; justify-content: center; gap: 28px; min-width: 0; }
+.knife-left-label { font-family: 'DM Mono', monospace; font-size: 0.63rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+.knife-left h2 { font-family: 'Syne', sans-serif; font-size: clamp(1.6rem, 3.5vw, 3.2rem); font-weight: 800; color: var(--on-dark-high); letter-spacing: -0.03em; line-height: 1.05; }
+.knife-left h2 em { font-style: normal; background: linear-gradient(135deg, var(--gold), var(--gold-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.knife-left-body { font-size: clamp(0.85rem, 1vw, 1rem); color: var(--on-dark-mid); line-height: 1.7; max-width: 480px; }
+.knife-left-specs { display: flex; gap: clamp(16px, 2vw, 32px); margin-top: 8px; flex-wrap: wrap; }
+.knife-left-spec { display: flex; flex-direction: column; gap: 4px; }
+.knife-left-spec-label { font-family: 'DM Mono', monospace; font-size: 0.55rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--on-dark-low); }
+.knife-left-spec-value { font-family: 'Syne', sans-serif; font-size: 0.82rem; font-weight: 600; color: var(--on-dark-mid); }
+.knife-showcase { flex: 0 0 55%; position: relative; height: 80vh; min-height: 400px; }
+.knife-sticky { position: sticky; top: 72px; height: calc(100vh - 96px); overflow: hidden; }
+#knife-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; z-index: 1; filter: contrast(1.08) saturate(0.92); }
+.knife-divider { height: 1px; margin: 64px clamp(20px, 4vw, 56px) 0; background: linear-gradient(90deg, transparent, var(--bg-page-dark), transparent); }
+
+.how-card { background: var(--bg-card); border-radius: var(--radius-2xl); padding: clamp(40px, 5vw, 72px) clamp(28px, 4vw, 56px); position: relative; overflow: hidden; }
+.how-card .watermark { font-size: clamp(4rem, 19vw, 9rem); top: 130px; right: 0; }
+.how-card::after { content: ''; position: absolute; bottom: -80px; right: -80px; width: 300px; height: 300px; background: radial-gradient(ellipse, rgba(201, 168, 76, 0.05) 0%, transparent 70%); pointer-events: none; }
+.how-card h2 { font-family: 'Syne', sans-serif; font-size: clamp(1.8rem, 4vw, 3.2rem); font-weight: 800; color: var(--on-dark-high); letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 64px; margin-top: 8px; max-width: 500px; }
+.how-card h2 span { background: linear-gradient(135deg, var(--gold), var(--gold-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.steps-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; }
+.step { position: relative; padding-top: 24px; }
+.step::before { content: ''; position: absolute; top: 0; left: 0; width: 40px; height: 2px; background: linear-gradient(90deg, var(--gold), transparent); }
+.step-num { font-family: 'DM Mono', monospace; font-size: 0.67rem; letter-spacing: 0.2em; color: var(--gold-dim); margin-bottom: 16px; }
+.step-title { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; color: var(--on-dark-high); margin-bottom: 10px; }
+.step-desc { font-size: 0.84rem; line-height: 1.65; color: var(--on-dark-mid); font-weight: 300; }
+
+.services-section-wrap { display: flex; flex-direction: column; gap: 24px; }
+.services-header { display: flex; gap: clamp(32px, 5vw, 64px); align-items: center; background: var(--bg-card); border-radius: var(--radius-2xl); padding: clamp(40px, 4vw, 56px) clamp(32px, 4vw, 56px); position: relative; overflow: hidden; }
+.services-header::after { content: ''; position: absolute; bottom: -60px; right: -60px; width: 250px; height: 250px; background: radial-gradient(ellipse, rgba(201, 168, 76, 0.05) 0%, transparent 70%); pointer-events: none; }
+.services-header-text { flex: 1; min-width: 0; }
+.services-header h2 { font-family: 'Syne', sans-serif; font-size: clamp(1.6rem, 2.5vw, 2.2rem); font-weight: 800; color: var(--on-dark-high); letter-spacing: -0.02em; line-height: 1.15; margin-top: 8px; }
+.services-header h2 span { background: linear-gradient(135deg, var(--gold), var(--gold-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.services-header p { font-size: 0.9rem; line-height: 1.7; color: var(--on-dark-mid); font-weight: 300; margin-top: 16px; max-width: 420px; }
+.services-header .btn-primary { flex-shrink: 0; }
+.services-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.service-card { background: var(--bg-card-mid); border-radius: var(--radius-lg); padding: 32px 28px; border: 1px solid var(--border-dark); transition: transform 0.25s, border-color 0.25s; cursor: default; position: relative; overflow: hidden; }
+.service-card::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(201, 168, 76, 0.04), transparent); opacity: 0; transition: opacity 0.3s; pointer-events: none; }
+.service-card:hover { transform: translateY(-4px); border-color: var(--border-gold); }
+.service-card:hover::after { opacity: 1; }
+.service-card.popular { border-color: var(--border-gold); }
+.service-card.popular::before { content: 'Most Popular'; position: absolute; top: 16px; right: 16px; font-family: 'DM Mono', monospace; font-size: 0.58rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); background: rgba(201, 168, 76, 0.1); padding: 4px 10px; border-radius: 100px; border: 1px solid rgba(201, 168, 76, 0.2); z-index: 1; }
+.service-icon { width: 44px; height: 44px; background: rgba(201, 168, 76, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px; font-size: 1.2rem; }
+.service-name  { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; color: var(--on-dark-high); margin-bottom: 8px; }
+.service-price { font-family: 'DM Mono', monospace; font-size: 1.4rem; font-weight: 500; color: var(--gold); margin-bottom: 12px; line-height: 1; }
+.service-price sup { font-size: 0.7em; vertical-align: super; }
+.service-desc  { font-size: 0.8rem; line-height: 1.6; color: var(--on-dark-mid); font-weight: 300; }
+.service-card.rush-card { border: 1px solid var(--border-dark); }
+.service-card.rush-card:hover { border-color: rgba(255, 255, 255, 0.12); }
+.service-card.rush-card .service-price { color: var(--gold-light); }
+
+.about-section { display: grid; grid-template-columns: 1.2fr 1fr; gap: 24px; align-items: stretch; }
+.about-main { background: var(--bg-card); border-radius: var(--radius-2xl); padding: clamp(24px, 2vw, 40px) clamp(32px, 4vw, 56px) clamp(40px, 5vw, 64px); position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: center; }
+.about-main h2 { font-family: 'Syne', sans-serif; font-size: clamp(1.6rem, 2.5vw, 2.2rem); font-weight: 800; color: var(--on-dark-high); line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 28px; margin-top: 8px; }
+.about-main h2 em { font-style: normal; background: linear-gradient(135deg, var(--gold), var(--gold-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.about-main p { font-size: 0.95rem; line-height: 1.8; color: var(--on-dark-mid); font-weight: 300; margin-bottom: 20px; }
+.about-pullquote { border-left: 2px solid var(--gold); padding-left: 20px; margin: 8px 0 24px; }
+.about-pullquote p { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 600; color: var(--on-dark-high); line-height: 1.5; margin-bottom: 0; }
+.about-service-area { font-size: 0.82rem; color: var(--on-dark-low); line-height: 1.7; font-weight: 300; }
+.about-sidebar { display: flex; flex-direction: column; gap: 16px; align-self: stretch; }
+.about-kit-card { background: var(--bg-card); border-radius: var(--radius-lg); padding: 24px 32px; flex: 1; display: flex; flex-direction: column; min-height: 0; }
+.about-kit-card h3 { font-family: 'Syne', sans-serif; font-size: 0.95rem; font-weight: 700; color: var(--on-dark-high); margin-bottom: 8px; }
+.about-kit-intro { font-size: 0.78rem; color: var(--on-dark-low); font-weight: 300; line-height: 1.6; margin-bottom: 16px; }
+.kit-item { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+.kit-item:last-child { border-bottom: none; }
+.kit-dot  { width: 6px; height: 6px; background: var(--gold); border-radius: 50%; flex-shrink: 0; }
+.kit-text { font-size: 0.82rem; color: var(--on-dark-mid); font-weight: 300; }
+
+.before-after-section { background: var(--bg-card); border-radius: var(--radius-2xl); padding: clamp(40px, 5vw, 64px) clamp(28px, 4vw, 56px); position: relative; overflow: hidden; }
+.before-after-section::after { content: ''; position: absolute; bottom: -100px; left: -100px; width: 350px; height: 350px; background: radial-gradient(ellipse, rgba(201, 168, 76, 0.04) 0%, transparent 70%); pointer-events: none; }
+.ba-header { margin-bottom: 40px; }
+.ba-header h2 { font-family: 'Syne', sans-serif; font-size: clamp(1.6rem, 2.5vw, 2.2rem); font-weight: 800; color: var(--on-dark-high); letter-spacing: -0.02em; line-height: 1.1; margin-top: 8px; max-width: 500px; }
+.ba-header h2 em { font-style: normal; background: linear-gradient(135deg, var(--gold), var(--gold-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.ba-header p { font-size: 0.9rem; color: var(--on-dark-mid); font-weight: 300; margin-top: 12px; line-height: 1.6; }
+.ba-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+.ba-card { border-radius: var(--radius-lg); overflow: hidden; background: var(--bg-card-accent); border: 1px solid var(--border-dark); position: relative; }
+.ba-slider-wrap { position: relative; width: 100%; aspect-ratio: 4 / 3; overflow: hidden; cursor: col-resize; user-select: none; -webkit-user-select: none; }
+.ba-after { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.ba-after img, .ba-before img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.ba-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+.ba-after .ba-placeholder { background: #1a1c20; }
+.ba-before .ba-placeholder { background: #141618; }
+.ba-before { position: absolute; inset: 0; overflow: hidden; }
+.ba-before-inner { position: absolute; inset: 0; right: auto; }
+.ba-handle { position: absolute; top: 0; bottom: 0; width: 2px; background: var(--gold); cursor: col-resize; z-index: 10; }
+.ba-handle-btn { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 36px; height: 36px; border-radius: 50%; background: var(--gold); display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 12px rgba(0,0,0,0.4); }
+.ba-handle-btn svg { width: 16px; height: 16px; fill: var(--bg-card); }
+.ba-label { position: absolute; bottom: 14px; font-family: 'DM Mono', monospace; font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; padding: 5px 10px; border-radius: 100px; z-index: 5; pointer-events: none; }
+.ba-label-before { left: 14px; background: rgba(0,0,0,0.55); color: rgba(255,255,255,0.6); border: 1px solid rgba(255,255,255,0.1); }
+.ba-label-after { right: 14px; background: rgba(201, 168, 76, 0.15); color: var(--gold); border: 1px solid rgba(201, 168, 76, 0.25); }
+.ba-caption { padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--border-dark); }
+.ba-caption-title { font-family: 'Syne', sans-serif; font-size: 0.82rem; font-weight: 700; color: var(--on-dark-high); }
+.ba-caption-sub { font-size: 0.72rem; color: var(--on-dark-low); margin-top: 2px; letter-spacing: 0.02em; }
+.ba-caption-badge { font-family: 'DM Mono', monospace; font-size: 0.58rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); background: rgba(201, 168, 76, 0.1); border: 1px solid rgba(201, 168, 76, 0.2); padding: 4px 10px; border-radius: 100px; white-space: nowrap; }
+.ba-note { margin-top: 24px; display: flex; align-items: center; gap: 10px; font-size: 0.75rem; color: var(--on-dark-low); font-weight: 300; }
+.ba-note::before { content: ''; display: block; width: 20px; height: 1px; background: var(--gold-dim); flex-shrink: 0; }
+
+.testimonials-section { background: var(--bg-card); border-radius: var(--radius-2xl); padding: clamp(40px, 5vw, 64px) clamp(28px, 4vw, 56px); position: relative; overflow: hidden; }
+.testimonials-section::before { content: ''; position: absolute; top: -150px; right: -150px; width: 400px; height: 400px; background: radial-gradient(ellipse, rgba(201, 168, 76, 0.05) 0%, transparent 70%); }
+.testi-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 48px; }
+.testi-header h2 { font-family: 'Syne', sans-serif; font-size: clamp(1.6rem, 2.5vw, 2.2rem); font-weight: 800; color: var(--on-dark-high); letter-spacing: -0.02em; line-height: 1.1; margin-top: 8px; }
+.testi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.testi-card { background: var(--bg-card-accent); border-radius: var(--radius-lg); padding: 32px; border: 1px solid var(--border-dark); transition: transform 0.25s, border-color 0.25s; display: flex; flex-direction: column; gap: 20px; position: relative; overflow: hidden; }
+.testi-card::before { content: '\201C'; position: absolute; top: -8px; right: 24px; font-family: 'Syne', sans-serif; font-size: 6rem; font-weight: 800; color: rgba(201, 168, 76, 0.07); line-height: 1; pointer-events: none; user-select: none; }
+.testi-card:hover { transform: translateY(-3px); border-color: var(--border-gold); }
+.testi-body { flex: 1; }
+.testi-text { font-size: 0.9rem; line-height: 1.75; color: var(--on-dark-mid); font-weight: 300; font-style: italic; }
+.testi-footer { display: flex; align-items: center; gap: 12px; padding-top: 20px; border-top: 1px solid rgba(255, 255, 255, 0.06); }
+.testi-avatar { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, var(--gold-dim), var(--gold)); display: flex; align-items: center; justify-content: center; font-family: 'Syne', sans-serif; font-size: 0.7rem; font-weight: 700; color: var(--bg-card); flex-shrink: 0; letter-spacing: 0.02em; }
+.testi-meta { flex: 1; min-width: 0; }
+.testi-author { font-family: 'Syne', sans-serif; font-size: 0.82rem; font-weight: 700; color: var(--on-dark-high); }
+.testi-role   { font-size: 0.7rem; color: var(--on-dark-low); margin-top: 2px; letter-spacing: 0.02em; }
+.testi-stars  { color: var(--gold); font-size: 0.6rem; letter-spacing: 3px; margin-left: auto; flex-shrink: 0; align-self: flex-start; padding-top: 2px; }
+
+.faq-section { display: grid; grid-template-columns: 1fr 1.5fr; gap: 24px; align-items: start; }
+.faq-intro { background: var(--bg-card); border-radius: var(--radius-2xl); padding: 48px 40px; position: sticky; top: 96px; }
+.faq-intro h2 { font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800; color: var(--on-dark-high); letter-spacing: -0.02em; line-height: 1.15; margin-top: 8px; margin-bottom: 20px; }
+.faq-intro h2 span { background: linear-gradient(135deg, var(--gold), var(--gold-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.faq-intro p { font-size: 0.87rem; line-height: 1.7; color: var(--on-dark-low); font-weight: 300; }
+.faq-list { display: flex; flex-direction: column; gap: 12px; }
+.faq-item { background: var(--bg-card); border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--border-dark); transition: border-color 0.25s; }
+.faq-item.open { border-color: var(--border-gold); }
+.faq-question { padding: 24px 28px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; gap: 16px; -webkit-tap-highlight-color: transparent; }
+.faq-q-text { font-family: 'Syne', sans-serif; font-size: 0.92rem; font-weight: 600; color: var(--on-dark-high); letter-spacing: -0.01em; line-height: 1.3; }
+.faq-toggle { width: 28px; height: 28px; border-radius: 50%; background: rgba(255, 255, 255, 0.06); display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 0.2s, transform 0.3s; color: var(--on-dark-low); font-size: 1rem; }
+.faq-item.open .faq-toggle { background: rgba(201, 168, 76, 0.15); color: var(--gold); transform: rotate(45deg); }
+.faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+.faq-answer-inner { padding: 0 28px 24px; font-size: 0.85rem; line-height: 1.75; color: var(--on-dark-mid); font-weight: 300; }
+.faq-answer-inner p + p { margin-top: 8px; }
+
+.booking-section { background: var(--bg-card); border-radius: var(--radius-2xl); padding: clamp(48px, 6vw, 80px); text-align: center; position: relative; overflow: hidden; }
+.booking-section::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 0%, rgba(201, 168, 76, 0.07) 0%, transparent 60%); pointer-events: none; }
+.booking-section h2 { font-family: 'Syne', sans-serif; font-size: clamp(1.8rem, 5vw, 3.5rem); font-weight: 800; color: var(--on-dark-high); letter-spacing: -0.03em; line-height: 1.05; margin-bottom: 20px; margin-top: 8px; position: relative; }
+.booking-section h2 em { font-style: normal; background: linear-gradient(135deg, var(--gold), var(--gold-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.booking-section > p { font-size: 1rem; color: var(--on-dark-mid); font-weight: 300; max-width: 440px; margin: 0 auto 48px; line-height: 1.7; position: relative; }
+.booking-form { display: flex; flex-direction: column; gap: 14px; max-width: 520px; margin: 0 auto; position: relative; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.form-field-wrap { position: relative; width: 100%; }
+.form-field-wrap .required-dot { position: absolute; top: 18px; right: 16px; width: 5px; height: 5px; background: var(--gold); border-radius: 50%; opacity: 0.5; pointer-events: none; z-index: 1; }
+.form-field { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.07); border-radius: 14px; padding: 16px 20px; color: var(--white); font-size: 0.87rem; font-family: 'DM Sans', sans-serif; outline: none; transition: border-color 0.2s, background 0.2s; width: 100%; -webkit-appearance: none; appearance: none; }
+.form-field::placeholder { color: rgba(255, 255, 255, 0.2); }
+.form-field:focus { border-color: var(--border-gold); background: rgba(255, 255, 255, 0.07); }
+.form-field:invalid:not(:placeholder-shown):not(:focus) { border-color: rgba(220, 80, 80, 0.4); }
+.form-field:valid:not(:placeholder-shown) { border-color: rgba(201, 168, 76, 0.25); }
+select.form-field { cursor: pointer; }
+select.form-field option { background: var(--bg-card-mid); color: var(--white); }
+textarea.form-field { resize: none; height: 100px; }
+.form-required-note { font-size: 0.7rem; color: var(--on-dark-low); text-align: left; display: flex; align-items: center; gap: 6px; margin-top: -4px; }
+.form-required-note .req-dot { width: 4px; height: 4px; background: var(--gold); border-radius: 50%; opacity: 0.5; flex-shrink: 0; }
+.form-submit { background: linear-gradient(135deg, var(--gold), var(--gold-dim)); color: var(--bg-card); border: none; border-radius: 100px; padding: 18px 40px; font-size: 0.9rem; font-weight: 600; font-family: 'DM Sans', sans-serif; letter-spacing: 0.04em; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 8px 32px rgba(201, 168, 76, 0.25); margin-top: 4px; -webkit-appearance: none; }
+.form-submit:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(201, 168, 76, 0.35); }
+@keyframes formShake { 0%, 100% { transform: translateX(0); } 20% { transform: translateX(-6px); } 40% { transform: translateX(5px); } 60% { transform: translateX(-4px); } 80% { transform: translateX(3px); } }
+
+/* ── Service selector ── */
+.svc-selector { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07); border-radius: 14px; padding: 20px 20px 16px; display: flex; flex-direction: column; gap: 14px; text-align: left; }
+.svc-selector-label { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.25em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 2px; }
+.svc-row { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.svc-row + .svc-row { padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.05); }
+.svc-check-label { display: flex; align-items: center; gap: 10px; cursor: pointer; flex: 1; min-width: 0; }
+.svc-check-label input[type="checkbox"] { appearance: none; -webkit-appearance: none; width: 18px; height: 18px; flex-shrink: 0; border: 1.5px solid rgba(255,255,255,0.15); border-radius: 5px; background: rgba(255,255,255,0.04); cursor: pointer; transition: background 0.2s, border-color 0.2s; position: relative; }
+.svc-check-label input[type="checkbox"]:checked { background: var(--gold); border-color: var(--gold); }
+.svc-check-label input[type="checkbox"]:checked::after { content: ''; position: absolute; left: 4px; top: 1px; width: 5px; height: 9px; border: 2px solid var(--bg-card); border-top: none; border-left: none; transform: rotate(45deg); }
+.svc-label-text { font-size: 0.84rem; color: rgba(255,255,255,0.55); line-height: 1.3; }
+.svc-label-text .svc-price { color: var(--gold); }
+.svc-qty { width: 110px !important; padding: 10px 14px !important; font-size: 0.82rem !important; flex-shrink: 0; display: none; }
+.svc-qty.visible { display: block; }
+.svc-rush-row { padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 2px; }
+
+footer { padding: 56px clamp(20px, 4vw, 56px); padding-bottom: calc(56px + var(--safe-bottom)); display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--bg-page-mid); flex-wrap: wrap; gap: 24px; }
+.footer-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.1rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-primary); }
+.footer-logo span { display: block; font-size: 0.55rem; font-weight: 500; letter-spacing: 0.4em; color: var(--text-muted); text-transform: uppercase; margin-top: 3px; }
+.footer-links { display: flex; gap: 32px; list-style: none; flex-wrap: wrap; }
+.footer-links a { text-decoration: none; font-size: 0.8rem; color: var(--text-muted); transition: color 0.2s; }
+.footer-links a:hover { color: var(--text-primary); }
+.footer-copy { font-size: 0.75rem; color: var(--text-muted); }
+.footer-credit { width: 100%; text-align: center; }
+.footer-credit span { font-family: 'DM Mono', monospace; font-size: 0.58rem; letter-spacing: 0.12em; color: var(--text-muted); opacity: 0.5; }
+.footer-credit a { color: inherit; text-decoration: none; }
+
+@media (max-width: 1100px) {
+  .services-cards { grid-template-columns: repeat(2, 1fr); }
+  .testi-grid     { grid-template-columns: repeat(2, 1fr); }
+  .testi-grid .testi-card:last-child { grid-column: 1 / -1; max-width: 50%; }
+  .services-header { flex-direction: column; align-items: flex-start; gap: 24px; }
+  .ba-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 960px) {
+  .nav-links { display: none; }
+  .hero-tagline-section { flex-direction: column; gap: 32px; }
+  .hero-tagline-right { justify-content: flex-start; }
+  .knife-section-wrap { flex-direction: column; }
+  .knife-left { flex: none; }
+  .knife-showcase { flex: none; height: 60vh; min-height: 300px; }
+  .steps-grid { grid-template-columns: 1fr 1fr; }
+  .about-section, .faq-section { grid-template-columns: 1fr; }
+  .faq-intro { position: static; }
+  .services-cards { grid-template-columns: repeat(2, 1fr); }
+  .testi-grid { grid-template-columns: 1fr; }
+  .testi-grid .testi-card:last-child { max-width: 100%; }
+  .form-row { grid-template-columns: 1fr; }
+  footer { flex-direction: column; text-align: center; }
+}
+@media (max-width: 520px) {
+  .steps-grid { grid-template-columns: 1fr; }
+  .services-cards { grid-template-columns: 1fr; }
+  .hero-stats-splash { gap: 16px; }
+  .stat-label { font-size: 0.58rem; letter-spacing: 0.1em; }
+  .knife-left-specs { flex-direction: column; gap: 12px; }
+  .cta-row { flex-direction: column; align-items: flex-start; gap: 16px; }
+  .hero-subtitle { font-size: 0.85rem; }
+  .svc-row { flex-direction: column; align-items: flex-start; }
+  .svc-qty { width: 100% !important; }
+}
+@media (min-width: 1800px) { body { max-width: 2200px; margin: 0 auto; } }
+</style>
+</head>
+<body>
+
+<div id="scroll-progress"></div>
+
+<nav>
+  <a href="#" class="nav-logo">
+    <span class="logo-sharp">SHARP</span>
+    <span class="logo-by">by Dylan</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#process">Process</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#book" class="nav-cta">Book Now</a></li>
+  </ul>
+</nav>
+
+<section class="hero-splash">
+  <div class="hero-glow"></div>
+  <div class="hero-scan"></div>
+  <div>
+    <span class="hero-wordmark-sharp" aria-label="Sharp">
+      <span class="sharp-letter">S</span><span class="sharp-letter">H</span><span class="sharp-letter">A</span><span class="sharp-letter">R</span><span class="sharp-letter">P</span>
+    </span>
+    <div class="hero-byline">
+      <div class="hero-byline-line"></div>
+      <span class="hero-byline-text">BY DYLAN</span>
+    </div>
+    <p class="hero-subtitle">Professional whetstone knife sharpening, collected and returned to your door across Sydney.</p>
+  </div>
+  <div class="scroll-hint" id="scroll-hint">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+  <div class="hero-stats-splash">
+    <div class="stat"><div class="stat-num">100+</div><div class="stat-label">Blades Sharpened</div></div>
+    <div class="stat"><div class="stat-num">5&#9733;</div><div class="stat-label">Avg Rating</div></div>
+    <div class="stat"><div class="stat-num">24h</div><div class="stat-label">Turnaround</div></div>
+  </div>
+</section>
+
+<div class="hero-tagline-section reveal">
+  <div class="ht-headline">A sharper<br>blade.<br><em>Every time.</em></div>
+  <div class="hero-tagline-right">
+    <div class="cta-row">
+      <a href="#book" class="btn-primary">Book a Sharpening &#8594;</a>
+      <a href="#services" class="btn-secondary">See pricing</a>
+    </div>
+  </div>
+</div>
+
+<div class="knife-section-wrap">
+  <div class="knife-left">
+    <div>
+      <div class="knife-left-label">Craftsmanship</div>
+      <h2>Precision ground.<br><em>Every angle.</em></h2>
+    </div>
+    <p class="knife-left-body">Every knife is sharpened by hand using professional Japanese waterstones — the same stones used by master craftsmen. The result is a mirror-polished edge that cuts cleaner, lasts longer, and slices better than the day it was forged.</p>
+    <div class="knife-left-specs">
+      <div class="knife-left-spec">
+        <span class="knife-left-spec-label">Material</span>
+        <span class="knife-left-spec-value">High-Carbon Steel</span>
+      </div>
+      <div class="knife-left-spec">
+        <span class="knife-left-spec-label">Edge Angle</span>
+        <span class="knife-left-spec-value">15&#8211;20&#176;</span>
+      </div>
+      <div class="knife-left-spec">
+        <span class="knife-left-spec-label">Finish</span>
+        <span class="knife-left-spec-value">Mirror Polish</span>
+      </div>
+    </div>
+  </div>
+  <div class="knife-showcase" id="knife-showcase">
+    <div class="knife-sticky">
+      <canvas id="knife-canvas"></canvas>
+    </div>
+  </div>
+</div>
+<div class="knife-divider"></div>
+
+<section id="process">
+  <div class="how-card reveal">
+    <span class="watermark">SHARP</span>
+    <span class="section-label">Process</span>
+    <h2>The process,<br>done <span>properly.</span></h2>
+    <div class="steps-grid">
+      <div class="step">
+        <div class="step-num">01 &#8212; BOOK</div>
+        <div class="step-title">Request a Collection</div>
+        <div class="step-desc">Fill in the form and collection time that suits you will be confirmed.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">02 &#8212; COLLECT</div>
+        <div class="step-title">Pickup</div>
+        <div class="step-desc">Safely collected from your door. No hassle &#8212; they go in a collection sleeve and the rest is handled.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">03 &#8212; SHARPEN</div>
+        <div class="step-title">Whetstone Precision</div>
+        <div class="step-desc">Each blade is hand-sharpened on Japanese ceramic whetstones, followed by a finish and polish.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">04 &#8212; RETURN</div>
+        <div class="step-title">Delivered Back to You</div>
+        <div class="step-desc">Your knives are returned within 24 hours, edges restored and kitchen-ready. You'll notice the difference immediately.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="services">
+  <div class="services-section-wrap reveal">
+    <div class="services-header">
+      <div class="services-header-text">
+        <span class="section-label">Pricing</span>
+        <h2>Simple, <span>honest</span> rates.</h2>
+        <p>Free collection and delivery for orders of 5+ knives in the Sydney metro area. Smaller orders may incur a collection charge.</p>
+      </div>
+      <a href="#book" class="btn-primary">Book Now &#8594;</a>
+    </div>
+    <div class="services-cards">
+      <div class="service-card popular">
+        <div class="service-icon"><img src="knifeblock.png" alt="Knife block" style="width:32px;height:32px;object-fit:contain;"></div>
+        <div class="service-name">Knife Blocks</div>
+        <div class="service-price"><sup>$</sup>9 <span style="font-size:0.9rem;">p/blade</span></div>
+        <div class="service-desc">Per-knife pricing for household sets (4+ knives). Most popular option — great value for the whole block.</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">&#128298;</div>
+        <div class="service-name">Premium Service — Chef's Knives</div>
+        <div class="service-price"><sup>$</sup>15</div>
+        <div class="service-desc">Premier sharpening for your best chef's knives up to 40cm. Includes stropping for a mirror-finish edge.</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">&#127970;</div>
+        <div class="service-name">Restaurant</div>
+        <div class="service-price">PoA</div>
+        <div class="service-desc">Custom quotes for hospitality businesses. Regular schedules available on request.</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">&#128481;</div>
+        <div class="service-name">Specialty Blade</div>
+        <div class="service-price"><sup>$</sup>16</div>
+        <div class="service-desc">Recurve, single-bevel, cleavers, fillet knives. Contact me first for serrated blades.</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon"><img src="scissors.png" alt="Scissors" style="width:32px;height:32px;object-fit:contain;filter:hue-rotate(190deg) saturate(0.6) brightness(1.4);"></div>
+        <div class="service-name">Scissors</div>
+        <div class="service-price"><sup>$</sup>10</div>
+        <div class="service-desc">Kitchen scissors, fabric shears, and craft scissors. Restored to clean, smooth cuts.</div>
+      </div>
+      <div class="service-card rush-card">
+        <div class="service-icon">&#128640;</div>
+        <div class="service-name">Rush Order</div>
+        <div class="service-price"><sup>+$</sup>10</div>
+        <div class="service-desc">Need it back within hours? Rush service available when schedule permits.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="about-section reveal">
+    <div class="about-main">
+      <span class="section-label">About</span>
+      <h2>The craft behind the <em>edge.</em></h2>
+      <p>I'm Dylan &#8212; a Sydney-based uni student who's spent the last year obsessing over the art of whetstone sharpening. What started as a side interest became a genuine craft.</p>
+      <div class="about-pullquote">
+        <p>Anyone can do a patch-job &#8212; I reinvent your blade.</p>
+      </div>
+      <p>Using professional-grade Japanese ceramic whetstones across multiple grits, every knife is finished on a leather strop loaded with chromium oxide for a mirror-polished, razor-sharp result.</p>
+      <p class="about-service-area">Sharp by Dylan operates across the Sydney metro area. Pickup and delivery included for orders of 5+ knives.</p>
+    </div>
+    <div class="about-sidebar">
+      <div class="about-kit-card">
+        <h3>My Sharpening Kit</h3>
+        <p class="about-kit-intro">The stones and tools behind every edge I put on a blade &#8212; each grit serves a specific stage in the sharpening process.</p>
+        <div class="kit-item"><div class="kit-dot"></div><div class="kit-text">Naniwa ceramic 400 grit &#8212; Primary Bevel Setting</div></div>
+        <div class="kit-item"><div class="kit-dot"></div><div class="kit-text">Naniwa ceramic 1200 grit &#8212; Edge Refinement</div></div>
+        <div class="kit-item"><div class="kit-dot"></div><div class="kit-text">Naniwa ceramic 3000 grit &#8212; Edge Perfection</div></div>
+        <div class="kit-item"><div class="kit-dot"></div><div class="kit-text">Combination 120/240 stone &#8212; Repair and Reprofiling</div></div>
+        <div class="kit-item"><div class="kit-dot"></div><div class="kit-text">Naniwa Nagura 600 &#8212; Stone Conditioning</div></div>
+        <div class="kit-item"><div class="kit-dot"></div><div class="kit-text">Leather Strop + Cutting Compound &#8212; Mirror Polishing</div></div>
+      </div>
+      <div class="highlight-card">
+        <h3>&#10022; Satisfaction Guaranteed</h3>
+        <p>Not happy with the result? I'll resharpen for free, no questions asked.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="results">
+  <div class="before-after-section reveal">
+    <div class="ba-header">
+      <span class="section-label">Results</span>
+      <h2>See the <em>difference.</em></h2>
+      <p>Drag the handle left and right to compare. Every result below is a real knife from a real customer.</p>
+    </div>
+    <div class="ba-grid">
+      <div class="ba-card">
+        <div class="ba-slider-wrap" data-pct="50">
+          <div class="ba-after">
+            <div class="ba-placeholder">
+              <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" opacity="0.18">
+                <path d="M12 40 Q40 10 68 40" stroke="#C9A84C" stroke-width="2" fill="none"/>
+                <line x1="40" y1="18" x2="40" y2="62" stroke="#C9A84C" stroke-width="1.5"/>
+                <circle cx="40" cy="40" r="28" stroke="#C9A84C" stroke-width="1" opacity="0.4"/>
+                <text x="40" y="76" text-anchor="middle" font-family="monospace" font-size="8" fill="#C9A84C" opacity="0.6">AFTER</text>
+              </svg>
+            </div>
+          </div>
+          <div class="ba-before">
+            <div class="ba-before-inner">
+              <div class="ba-placeholder">
+                <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" opacity="0.18">
+                  <path d="M12 40 Q40 10 68 40" stroke="#888" stroke-width="2" fill="none" stroke-dasharray="4 3"/>
+                  <line x1="40" y1="18" x2="40" y2="62" stroke="#888" stroke-width="1.5"/>
+                  <circle cx="40" cy="40" r="28" stroke="#888" stroke-width="1" opacity="0.4"/>
+                  <text x="40" y="76" text-anchor="middle" font-family="monospace" font-size="8" fill="#888" opacity="0.6">BEFORE</text>
+                </svg>
+              </div>
+            </div>
+          </div>
+          <div class="ba-handle">
+            <div class="ba-handle-btn">
+              <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M5 8l-3-3v6l3-3zM11 8l3-3v6l-3-3z"/></svg>
+            </div>
+          </div>
+          <span class="ba-label ba-label-before">Before</span>
+          <span class="ba-label ba-label-after">After</span>
+        </div>
+        <div class="ba-caption">
+          <div>
+            <div class="ba-caption-title">Global G-2 Chef's Knife</div>
+            <div class="ba-caption-sub">Roseville &middot; Standard service</div>
+          </div>
+          <span class="ba-caption-badge">Mirror finish</span>
+        </div>
+      </div>
+      <div class="ba-card">
+        <div class="ba-slider-wrap" data-pct="50">
+          <div class="ba-after">
+            <div class="ba-placeholder">
+              <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" opacity="0.18">
+                <path d="M12 40 Q40 10 68 40" stroke="#C9A84C" stroke-width="2" fill="none"/>
+                <line x1="40" y1="18" x2="40" y2="62" stroke="#C9A84C" stroke-width="1.5"/>
+                <circle cx="40" cy="40" r="28" stroke="#C9A84C" stroke-width="1" opacity="0.4"/>
+                <text x="40" y="76" text-anchor="middle" font-family="monospace" font-size="8" fill="#C9A84C" opacity="0.6">AFTER</text>
+              </svg>
+            </div>
+          </div>
+          <div class="ba-before">
+            <div class="ba-before-inner">
+              <div class="ba-placeholder">
+                <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" opacity="0.18">
+                  <path d="M12 40 Q40 10 68 40" stroke="#888" stroke-width="2" fill="none" stroke-dasharray="4 3"/>
+                  <line x1="40" y1="18" x2="40" y2="62" stroke="#888" stroke-width="1.5"/>
+                  <circle cx="40" cy="40" r="28" stroke="#888" stroke-width="1" opacity="0.4"/>
+                  <text x="40" y="76" text-anchor="middle" font-family="monospace" font-size="8" fill="#888" opacity="0.6">BEFORE</text>
+                </svg>
+              </div>
+            </div>
+          </div>
+          <div class="ba-handle">
+            <div class="ba-handle-btn">
+              <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M5 8l-3-3v6l3-3z M11 8l3-3v6l-3-3z"/></svg>
+            </div>
+          </div>
+          <span class="ba-label ba-label-before">Before</span>
+          <span class="ba-label ba-label-after">After</span>
+        </div>
+        <div class="ba-caption">
+          <div>
+            <div class="ba-caption-title">Wüsthof Classic 20cm</div>
+            <div class="ba-caption-sub">CBD &middot; Premium service</div>
+          </div>
+          <span class="ba-caption-badge">Razor edge</span>
+        </div>
+      </div>
+    </div>
+    <p class="ba-note">Photos coming soon — drop your before/after shots into the HTML to activate the sliders.</p>
+  </div>
+</section>
+
+<section>
+  <div class="testimonials-section reveal">
+    <div class="testi-header">
+      <div>
+        <span class="section-label">Reviews</span>
+        <h2>What people are saying.</h2>
+      </div>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="testi-body"><p class="testi-text">Couldn't believe the difference. My Global knives cut like I've never seen before.</p></div>
+        <div class="testi-footer">
+          <div class="testi-avatar">CN</div>
+          <div class="testi-meta"><div class="testi-author">Cassandra N.</div><div class="testi-role">Home Cook &middot; CBD</div></div>
+          <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-body"><p class="testi-text">They were amazing — so excited! Will definitely be back.</p></div>
+        <div class="testi-footer">
+          <div class="testi-avatar">JG</div>
+          <div class="testi-meta"><div class="testi-author">Jane G.</div><div class="testi-role">Home Cook &middot; Roseville</div></div>
+          <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-body"><p class="testi-text">Thanks Dylan, the veggies are virtually cutting themselves up!</p></div>
+        <div class="testi-footer">
+          <div class="testi-avatar">SA</div>
+          <div class="testi-meta"><div class="testi-author">Stacey A.</div><div class="testi-role">Home Cook &middot; Roseville</div></div>
+          <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="faq-section reveal">
+    <div class="faq-intro">
+      <span class="section-label">FAQ</span>
+      <h2>Questions, <span>answered.</span></h2>
+      <p>Everything you need to know about the process, pricing, and what to expect.</p>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item" id="faq-first">
+        <div class="faq-question" onclick="toggleFAQ(this)">
+          <span class="faq-q-text">Why get my knives sharpened?</span>
+          <div class="faq-toggle">+</div>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            <p>Why replace when your knives can be sharper than new for a quarter of the price?</p>
+            <p>Performance: a sharp knife makes cooking easy (and fun). Trust me.</p>
+            <p>Safety: dull knives require more force, leading to more slips, leading to less fingers.</p>
+          </div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFAQ(this)">
+          <span class="faq-q-text">Why Sharp by Dylan?</span>
+          <div class="faq-toggle">+</div>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            <p>Personal attention to detail: one person, one standard, every blade.</p>
+            <p>Whetstone only — no heat-generating grinders that damage steel.</p>
+            <p>Door-to-door — most places make you drop off and collect yourself.</p>
+          </div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFAQ(this)">
+          <span class="faq-q-text">Do you offer pickup and delivery?</span>
+          <div class="faq-toggle">+</div>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">Yes &#8212; free pickup and delivery for orders of 3 or more knives across the Sydney metro area. For smaller orders, a collection charge may apply.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFAQ(this)">
+          <span class="faq-q-text">How long does sharpening take?</span>
+          <div class="faq-toggle">+</div>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">Most orders are returned within 24 hours. Same-day rush service is available for an additional charge when scheduling permits.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFAQ(this)">
+          <span class="faq-q-text">What blades can you sharpen?</span>
+          <div class="faq-toggle">+</div>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">Western and Japanese kitchen knives, chef's knives, cleavers, fillet knives, paring knives, and scissors. I don't sharpen serrated, circular or power tool blades.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFAQ(this)">
+          <span class="faq-q-text">How do I pay?</span>
+          <div class="faq-toggle">+</div>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">Payment via Eftpos (card tap), cash, bank transfer (BSB/Acc), or PayID on delivery. I'll send an invoice when I return your knives.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFAQ(this)">
+          <span class="faq-q-text">Will sharpening damage my expensive knives?</span>
+          <div class="faq-toggle">+</div>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">No. I only use water-saturated Japanese ceramic whetstones (Naniwa Abrasives) &#8212; no grinding wheels or belts that generate heat and damage steel. I've sharpened hundreds of knives of all descriptions, and not only do I avoid damage, I eliminate previous damage too.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="book">
+  <div class="booking-section reveal">
+    <span class="section-label">Book</span>
+    <h2>Ready for a <em>razor</em> edge?</h2>
+    <p>Fill in your details and I'll be in touch soon to confirm your collection time.</p>
+    <form class="booking-form" name="contact" method="POST" data-netlify="true" novalidate id="booking-form">
+      <input type="hidden" name="form-name" value="contact">
+      <div class="form-required-note"><span class="req-dot"></span> Required field</div>
+      <div class="form-row">
+        <div class="form-field-wrap">
+          <input class="form-field" type="text" name="name" placeholder="Your name" required>
+          <span class="required-dot"></span>
+        </div>
+        <div class="form-field-wrap">
+          <input class="form-field" type="tel" name="phone" placeholder="Phone number" required>
+          <span class="required-dot"></span>
+        </div>
+      </div>
+      <div class="form-field-wrap">
+        <input class="form-field" type="email" name="email" placeholder="Email address" required>
+        <span class="required-dot"></span>
+      </div>
+      <div class="form-field-wrap">
+        <input class="form-field" type="text" name="suburb" placeholder="Suburb / area" required>
+        <span class="required-dot"></span>
+      </div>
+
+      <!-- Service selector -->
+      <div class="svc-selector">
+        <span class="svc-selector-label">Services required</span>
+
+        <div class="svc-row">
+          <label class="svc-check-label">
+            <input type="checkbox" name="svc_block" onchange="toggleQty(this,'qty_block')">
+            <span class="svc-label-text">Knife Block &mdash; <span class="svc-price">$9/blade</span></span>
+          </label>
+          <input type="number" name="qty_block" id="qty_block" min="1" max="99" placeholder="# knives" class="form-field svc-qty">
+        </div>
+
+        <div class="svc-row">
+          <label class="svc-check-label">
+            <input type="checkbox" name="svc_chef" onchange="toggleQty(this,'qty_chef')">
+            <span class="svc-label-text">Premium Chef's Knife &mdash; <span class="svc-price">$15/knife</span></span>
+          </label>
+          <input type="number" name="qty_chef" id="qty_chef" min="1" max="99" placeholder="# knives" class="form-field svc-qty">
+        </div>
+
+        <div class="svc-row">
+          <label class="svc-check-label">
+            <input type="checkbox" name="svc_specialty" onchange="toggleQty(this,'qty_specialty')">
+            <span class="svc-label-text">Specialty Blade &mdash; <span class="svc-price">$16/blade</span></span>
+          </label>
+          <input type="number" name="qty_specialty" id="qty_specialty" min="1" max="99" placeholder="# blades" class="form-field svc-qty">
+        </div>
+
+        <div class="svc-row">
+          <label class="svc-check-label">
+            <input type="checkbox" name="svc_scissors" onchange="toggleQty(this,'qty_scissors')">
+            <span class="svc-label-text">Scissors &mdash; <span class="svc-price">$10/pair</span></span>
+          </label>
+          <input type="number" name="qty_scissors" id="qty_scissors" min="1" max="99" placeholder="# pairs" class="form-field svc-qty">
+        </div>
+
+        <div class="svc-row svc-rush-row">
+          <label class="svc-check-label">
+            <input type="checkbox" name="svc_rush">
+            <span class="svc-label-text">Rush Order &mdash; <span class="svc-price">+$10</span></span>
+          </label>
+        </div>
+      </div>
+
+      <textarea class="form-field" name="message" placeholder="Any notes? Damaged tips, special blades, etc."></textarea>
+      <button type="submit" class="form-submit">Send Booking Request</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">SHARP<span>by Dylan &middot; Sydney</span></div>
+  <ul class="footer-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#results">Results</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#book">Book</a></li>
+    <li><a href="mailto:bookings@sharpbydylan.com.au">Email</a></li>
+    <li><a href="terms.html">Terms</a></li>
+  </ul>
+  <div class="footer-copy">&copy; 2026 Sharp by Dylan</div>
+  <div class="footer-credit">
+    <span>
+      <a href="https://skfb.ly/6VyKn" target="_blank" rel="noopener">"Kitchen Knife"</a>
+      by Sadia.M &mdash;
+      <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>
+    </span>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function () {
+  'use strict';
+
+  const GLB_FILE   = 'Knife.glb';
+  const SCALE      = 10;
+  const CX         =  0.028 * SCALE;
+  const CY         = -0.024 * SCALE;
+  const TARGET_DEG = 186;
+  const TARGET_RAD = TARGET_DEG * Math.PI / 180;
+
+  const canvas   = document.getElementById('knife-canvas');
+  const showcase = document.getElementById('knife-showcase');
+
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.shadowMap.enabled       = true;
+  renderer.shadowMap.type          = THREE.PCFSoftShadowMap;
+  renderer.toneMapping             = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure     = 1.6;
+  renderer.physicallyCorrectLights = true;
+  renderer.setClearColor(0x000000, 0);
+
+  const scene  = new THREE.Scene();
+  scene.background = null;
+  const camera = new THREE.PerspectiveCamera(36, 1, 0.01, 50);
+  camera.position.set(-0.3, -0.08, 4.6);
+  camera.lookAt(-0.3, 0.0, 0);
+
+  function resize() {
+    const w = canvas.clientWidth;
+    const h = canvas.clientHeight;
+    if (w === 0 || h === 0) return;
+    renderer.setSize(w, h, false);
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  function makeEnvMap() {
+    const size = 256;
+    function paintFace(fn) {
+      const c = document.createElement('canvas');
+      c.width = c.height = size;
+      const ctx = c.getContext('2d');
+      ctx.fillStyle = '#000';
+      ctx.fillRect(0, 0, size, size);
+      fn(ctx, size);
+      return c;
+    }
+    const faces = [
+      paintFace((ctx, s) => {
+        const g = ctx.createLinearGradient(s * 0.95, s * 0.1, s * 0.2, s * 0.9);
+        g.addColorStop(0,    'rgba(240, 220, 160, 0.85)');
+        g.addColorStop(0.15, 'rgba(210, 185, 100, 0.5)');
+        g.addColorStop(0.35, 'rgba(160, 130, 40, 0.15)');
+        g.addColorStop(1,    'rgba(0, 0, 0, 0)');
+        ctx.fillStyle = g; ctx.fillRect(0, 0, s, s);
+      }),
+      paintFace((ctx, s) => { ctx.fillStyle = 'rgba(28, 35, 55, 0.4)'; ctx.fillRect(0, 0, s, s); }),
+      paintFace((ctx, s) => {
+        const g = ctx.createRadialGradient(s * 0.5, 0, 0, s * 0.5, 0, s * 0.4);
+        g.addColorStop(0,    'rgba(240, 210, 140, 0.9)');
+        g.addColorStop(0.25, 'rgba(190, 155, 60, 0.3)');
+        g.addColorStop(0.5,  'rgba(0, 0, 0, 0)');
+        ctx.fillStyle = g; ctx.fillRect(0, 0, s, s);
+      }),
+      paintFace(() => {}),
+      paintFace((ctx, s) => { ctx.fillStyle = 'rgba(45, 55, 80, 0.2)'; ctx.fillRect(0, 0, s, s); }),
+      paintFace((ctx, s) => {
+        const g = ctx.createLinearGradient(0, s * 0.38, 0, s * 0.62);
+        g.addColorStop(0,    'rgba(0, 0, 0, 0)');
+        g.addColorStop(0.44, 'rgba(0, 0, 0, 0)');
+        g.addColorStop(0.5,  'rgba(240, 200, 90, 0.75)');
+        g.addColorStop(0.56, 'rgba(0, 0, 0, 0)');
+        g.addColorStop(1,    'rgba(0, 0, 0, 0)');
+        ctx.fillStyle = g; ctx.fillRect(0, 0, s, s);
+      }),
+    ];
+    const tex = new THREE.CubeTexture(faces);
+    tex.needsUpdate = true;
+    return tex;
+  }
+
+  const envMap = makeEnvMap();
+  scene.environment = envMap;
+
+  const keyLight = new THREE.DirectionalLight(0xfff0d8, 6.0);
+  keyLight.position.set(4, 6, 3);
+  keyLight.castShadow = true;
+  keyLight.shadow.mapSize.set(2048, 2048);
+  scene.add(keyLight);
+
+  const rimLight = new THREE.DirectionalLight(0xffffff, 3.5);
+  rimLight.position.set(-1, 3, -5);
+  scene.add(rimLight);
+
+  const topLight = new THREE.DirectionalLight(0xffe8b0, 2.5);
+  topLight.position.set(0, 5, 1);
+  scene.add(topLight);
+
+  scene.add(new THREE.AmbientLight(0x111520, 3.0));
+
+  const orbitPt = new THREE.PointLight(0xffd878, 10, 7);
+  orbitPt.position.set(2, 0.5, 2.5);
+  scene.add(orbitPt);
+
+  const pivot = new THREE.Group();
+  scene.add(pivot);
+
+  function tuneMaterial(mat) {
+    if (!mat) return;
+    const name = (mat.name || '').toLowerCase();
+    mat.side   = THREE.DoubleSide;
+    mat.envMap = envMap;
+    if      (name.includes('knife texture')) { mat.metalness = 0.95; mat.roughness = 0.18; mat.envMapIntensity = 1.1; mat.color.set(0xd0d5da); }
+    else if (name.includes('knife dhaar'))   { mat.metalness = 0.99; mat.roughness = 0.03; mat.envMapIntensity = 1.6; mat.color.set(0xe0eeff); }
+    else if (name.includes('default'))       { mat.metalness = 0.85; mat.roughness = 0.28; mat.envMapIntensity = 0.7; mat.color.set(0x8899aa); }
+    else if (name.includes('wood'))          { mat.metalness = 0.0;  mat.roughness = 0.92; mat.envMapIntensity = 0.0; mat.color.multiplyScalar(0.28); }
+    else if (name.includes('golden'))        { mat.metalness = 0.92; mat.roughness = 0.14; mat.envMapIntensity = 1.0; }
+    mat.needsUpdate = true;
+  }
+
+  function loadScript(src, onLoad, onError) {
+    const s = document.createElement('script');
+    s.src = src; s.onload = onLoad; s.onerror = onError;
+    document.head.appendChild(s);
+  }
+  function loadGLTFLoader(cb) {
+    const pri = 'https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js';
+    const fb  = 'https://unpkg.com/three@0.128.0/examples/js/loaders/GLTFLoader.js';
+    loadScript(pri, cb, () => loadScript(fb, cb, () => console.error('GLTFLoader unavailable')));
+  }
+
+  loadGLTFLoader(() => {
+    if (typeof THREE.GLTFLoader === 'undefined') { console.error('GLTFLoader missing'); return; }
+    new THREE.GLTFLoader().load(GLB_FILE, (gltf) => {
+      const model = gltf.scene;
+      model.scale.setScalar(SCALE);
+      model.position.set(CX, CY, 0);
+      model.traverse((child) => {
+        if (!child.isMesh) return;
+        child.castShadow = child.receiveShadow = true;
+        Array.isArray(child.material) ? child.material.forEach(tuneMaterial) : tuneMaterial(child.material);
+      });
+      model.rotation.z = -Math.PI / 4;
+      pivot.add(model);
+    }, undefined, (err) => console.error('GLB error:', err));
+  });
+
+  let curY = 0, tgtY = 0, curX = 0, tgtX = 0, curZ = 0, tgtZ = 0, locked = false;
+
+  function onScroll() {
+    const rect = showcase.getBoundingClientRect();
+    const vh   = window.innerHeight;
+    const midY = rect.top + rect.height / 2;
+    const p    = Math.max(0, Math.min(1, 1 - midY / vh));
+    const raw  = (p / 0.3) * TARGET_RAD;
+
+    if (raw >= TARGET_RAD) { tgtY = TARGET_RAD; locked = true; }
+    else                   { tgtY = raw;        locked = false; }
+
+    tgtX = 0.22 + Math.exp(-Math.pow((p - 0.5) / 0.3, 2)) * 0.55;
+    tgtZ = Math.sin(Math.min(p, 0.5) * Math.PI) * 0.10;
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  let t = 0;
+  function animate() {
+    requestAnimationFrame(animate);
+    t += 0.01;
+    curY += (tgtY - curY) * 0.07;
+    curX += (tgtX - curX) * 0.05;
+    curZ += (tgtZ - curZ) * 0.05;
+    pivot.rotation.order = 'YXZ';
+    pivot.rotation.set(curX, curY, curZ);
+    pivot.position.y = Math.sin(t * 0.5) * (locked ? 0.015 : 0.03 + curX * 0.04);
+    orbitPt.position.set(Math.cos(t * 0.19) * 2.1, 0.3 + Math.sin(t * 0.11) * 0.35, Math.sin(t * 0.27) * 0.8 + 2.2);
+    orbitPt.intensity = 8 + Math.sin(t * 0.53) * 3;
+    renderer.render(scene, camera);
+  }
+  animate();
+}());
+</script>
+
+<script>
+  /* ── Scroll Reveal ── */
+  const revealObs = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (!entry.isIntersecting) return;
+      setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      revealObs.unobserve(entry.target);
+    });
+  }, { threshold: 0.01, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach((el) => revealObs.observe(el));
+
+  /* ── FAQ Accordion ── */
+  function toggleFAQ(btn) {
+    const item   = btn.parentElement;
+    const answer = item.querySelector('.faq-answer');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach((o) => {
+      o.classList.remove('open');
+      o.querySelector('.faq-answer').style.maxHeight = '0';
+    });
+    if (!isOpen) {
+      item.classList.add('open');
+      answer.style.maxHeight = answer.scrollHeight + 'px';
+    }
+  }
+  (function () {
+    const first = document.getElementById('faq-first');
+    const ans   = first.querySelector('.faq-answer');
+    first.classList.add('open');
+    ans.style.maxHeight = ans.scrollHeight + 'px';
+  }());
+
+  /* ── Nav + progress bar + scroll hint ── */
+  const navEl        = document.querySelector('nav');
+  const barEl        = document.getElementById('scroll-progress');
+  const scrollHintEl = document.getElementById('scroll-hint');
+  let hintFaded = false;
+
+  window.addEventListener('scroll', () => {
+    navEl.style.background = window.scrollY > 40
+      ? 'rgba(224, 221, 215, 0.92)'
+      : 'rgba(237, 235, 230, 0.78)';
+    const pct = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight) * 100;
+    barEl.style.width = Math.min(pct, 100) + '%';
+    if (!hintFaded && window.scrollY > 100) { scrollHintEl.classList.add('faded'); hintFaded = true; }
+    else if (hintFaded && window.scrollY <= 50) { scrollHintEl.classList.remove('faded'); hintFaded = false; }
+  }, { passive: true });
+
+  /* ── Before / After Sliders ── */
+  document.querySelectorAll('.ba-slider-wrap').forEach((wrap) => {
+    const before = wrap.querySelector('.ba-before-inner');
+    const handle = wrap.querySelector('.ba-handle');
+    let pct = parseFloat(wrap.dataset.pct) || 50;
+
+    function setPosition(x) {
+      const rect = wrap.getBoundingClientRect();
+      pct = Math.max(5, Math.min(95, ((x - rect.left) / rect.width) * 100));
+      before.style.width = pct + '%';
+      handle.style.left  = pct + '%';
+    }
+
+    before.style.width = pct + '%';
+    handle.style.left  = pct + '%';
+
+    handle.addEventListener('mousedown', (e) => {
+      e.preventDefault();
+      const move = (ev) => setPosition(ev.clientX);
+      const up   = ()   => { window.removeEventListener('mousemove', move); window.removeEventListener('mouseup', up); };
+      window.addEventListener('mousemove', move);
+      window.addEventListener('mouseup', up);
+    });
+
+    handle.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      const move = (ev) => setPosition(ev.touches[0].clientX);
+      const end  = ()   => { window.removeEventListener('touchmove', move); window.removeEventListener('touchend', end); };
+      window.addEventListener('touchmove', move, { passive: false });
+      window.addEventListener('touchend', end);
+    }, { passive: false });
+
+    wrap.addEventListener('click', (e) => {
+      if (e.target === handle || handle.contains(e.target)) return;
+      setPosition(e.clientX);
+    });
+  });
+
+  /* ── Service selector qty toggle ── */
+  function toggleQty(cb, id) {
+    const qty = document.getElementById(id);
+    if (!qty) return;
+    qty.classList.toggle('visible', cb.checked);
+    if (!cb.checked) qty.value = '';
+  }
+
+  /* ── Booking Form Validation ── */
+  const bookingForm = document.getElementById('booking-form');
+  if (bookingForm) {
+    bookingForm.addEventListener('submit', (e) => {
+      const fields = bookingForm.querySelectorAll('.form-field[required]');
+      let firstInvalid = null;
+      let hasError = false;
+      fields.forEach((f) => {
+        const invalid = !f.value.trim()
+          || (f.tagName === 'SELECT' && f.value === '')
+          || (f.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.value));
+        if (invalid) {
+          f.style.borderColor = 'rgba(220, 80, 80, 0.5)';
+          f.style.animation = 'none';
+          f.offsetHeight;
+          f.style.animation = 'formShake 0.4s ease';
+          hasError = true;
+          if (!firstInvalid) firstInvalid = f;
+        }
+      });
+
+      // Check at least one service is selected
+      const anyService = bookingForm.querySelectorAll('.svc-selector input[type="checkbox"]:checked').length > 0;
+      if (!anyService) {
+        const sel = bookingForm.querySelector('.svc-selector');
+        sel.style.borderColor = 'rgba(220, 80, 80, 0.4)';
+        sel.style.animation = 'none';
+        sel.offsetHeight;
+        sel.style.animation = 'formShake 0.4s ease';
+        hasError = true;
+        if (!firstInvalid) firstInvalid = sel;
+      }
+
+      if (hasError) { e.preventDefault(); if (firstInvalid) firstInvalid.focus(); }
+    });
+
+    bookingForm.querySelectorAll('.form-field[required]').forEach((f) => {
+      ['input', 'change'].forEach((ev) => f.addEventListener(ev, () => { f.style.borderColor = ''; f.style.animation = ''; }));
+    });
+
+    bookingForm.querySelectorAll('.svc-selector input[type="checkbox"]').forEach((cb) => {
+      cb.addEventListener('change', () => {
+        bookingForm.querySelector('.svc-selector').style.borderColor = '';
+        bookingForm.querySelector('.svc-selector').style.animation = '';
+      });
+    });
+  }
+</script>
+</body>
+</html>
