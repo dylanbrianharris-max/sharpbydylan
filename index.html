@@ -128,7 +128,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 0 clamp
   margin-top: 12px;
 }
 
-.hero-splash { min-height: 100vh; min-height: 100dvh; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; padding: 0 clamp(24px, 5vw, 72px); position: relative; overflow: hidden; }
+.hero-splash { min-height: 100vh; min-height: 100dvh; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; padding: 0 clamp(24px, 5vw, 72px); padding-top: calc(72px + var(--safe-top)); position: relative; overflow: hidden; }
 .hero-splash::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--bg-page-dark), transparent); z-index: 1; }
 .hero-glow { position: absolute; top: 50%; left: 10%; transform: translate(-10%, -50%); width: 60vw; height: 60vh; background: radial-gradient(ellipse at center, rgba(201, 168, 76, 0.065) 0%, transparent 70%); pointer-events: none; z-index: 0; animation: glowPulse 4s ease-in-out infinite 1s; }
 @keyframes glowPulse { 0%, 100% { opacity: 0.6; transform: translate(-10%, -50%) scale(1); } 50% { opacity: 1; transform: translate(-10%, -50%) scale(1.08); } }
@@ -155,7 +155,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 0 clamp
 .scroll-line { width: 40px; height: 1px; background: var(--bg-page-dark); position: relative; overflow: hidden; }
 .scroll-line::after { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: var(--gold); animation: scrollSlide 2.4s ease-in-out infinite 2s; }
 @keyframes scrollSlide { 0% { left: -100%; } 50% { left: 100%; } 100% { left: 100%; } }
-.hero-stats-splash { position: absolute; bottom: 48px; right: clamp(24px, 5vw, 72px); display: flex; gap: clamp(24px, 3.5vw, 56px); z-index: 1; opacity: 0; animation: fadeIn 1s ease forwards 1.2s; }
+.hero-stats-splash { display: flex; gap: clamp(24px, 3.5vw, 56px); z-index: 1; opacity: 0; animation: fadeIn 1s ease forwards 1.2s; margin-top: 48px; margin-left: 6px; }
 .stat { text-align: right; }
 .stat-num { font-family: 'DM Mono', monospace; font-size: clamp(1.4rem, 2.2vw, 2rem); font-weight: 500; color: var(--text-primary); line-height: 1; }
 .stat-label { font-size: 0.67rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); margin-top: 5px; white-space: nowrap; }
@@ -364,14 +364,18 @@ footer { padding: 56px clamp(20px, 4vw, 56px); padding-bottom: calc(56px + var(-
 .footer-credit a { color: inherit; text-decoration: none; }
 
 /* ============================================================
-   RESPONSIVE — Existing breakpoints
+   TABLET — 1100px
    ============================================================ */
 @media (max-width: 1100px) {
   .services-cards { grid-template-columns: repeat(2, 1fr); }
-  .testi-grid     { grid-template-columns: repeat(2, 1fr); }
+  .testi-grid { grid-template-columns: repeat(2, 1fr); }
   .services-header { flex-direction: column; align-items: flex-start; gap: 24px; }
   .ba-grid { grid-template-columns: 1fr; }
 }
+
+/* ============================================================
+   TABLET PORTRAIT — 960px
+   ============================================================ */
 @media (max-width: 960px) {
   .nav-links { display: none; }
   .nav-hamburger { display: flex; }
@@ -381,9 +385,9 @@ footer { padding: 56px clamp(20px, 4vw, 56px); padding-bottom: calc(56px + var(-
   .ht-headline { font-size: clamp(1.6rem, 6vw, 3rem); }
   .knife-section-wrap { flex-direction: column; }
   .knife-left { flex: none; }
-  .knife-showcase { flex: none; height: 50vh; min-height: 280px; }
+  .knife-showcase { flex: none; height: 55vh; min-height: 320px; }
   .knife-sticky { height: 100%; }
-  .steps-grid { grid-template-columns: 1fr 1fr; }
+  .steps-grid { grid-template-columns: 1fr 1fr; gap: 24px; }
   .about-section, .faq-section { grid-template-columns: 1fr; }
   .faq-intro { position: static; }
   .services-cards { grid-template-columns: repeat(2, 1fr); }
@@ -392,49 +396,135 @@ footer { padding: 56px clamp(20px, 4vw, 56px); padding-bottom: calc(56px + var(-
   footer { flex-direction: column; text-align: center; }
   .footer-links { justify-content: center; }
 }
-@media (max-width: 700px) {
-  .services-header .btn-primary { width: 100%; justify-content: center; }
-  .testi-grid { grid-template-columns: 1fr; }
-}
-@media (max-width: 520px) {
-  .steps-grid { grid-template-columns: 1fr; }
-  .services-cards { grid-template-columns: 1fr; }
-  section { padding: 32px 20px; }
-  .knife-section-wrap { margin: 40px 16px 0; }
-  .knife-divider { margin: 40px 16px 0; }
 
-  /* Hero stats — move inline on small screens */
-  .hero-stats-splash {
-    position: static;
-    margin-top: 36px;
-    margin-left: 6px;
-    opacity: 0;
-    animation: fadeIn 1s ease forwards 1.2s;
-    justify-content: flex-start;
-    gap: 28px;
-  }
+/* ============================================================
+   MOBILE — 768px — PURPOSE-BUILT LAYOUT
+   ============================================================ */
+@media (max-width: 768px) {
+  /* Global */
+  :root { --radius-2xl: 28px; --radius-lg: 18px; }
+  section { padding: 24px 16px; }
+
+  /* Nav */
+  .nav-links { display: none; }
+  .nav-hamburger { display: flex; }
+  .nav-drawer { display: flex; }
+
+  /* Hero */
   .hero-splash {
-    padding-top: calc(72px + var(--safe-top) + 32px);
-    padding-bottom: 56px;
     min-height: 100dvh;
-    justify-content: flex-start;
+    padding: 0 24px;
+    padding-top: calc(72px + var(--safe-top));
+    padding-bottom: 48px;
+    justify-content: center;
   }
+  .hero-glow { width: 80vw; height: 40vh; }
+  .hero-wordmark-sharp { font-size: clamp(4rem, 21vw, 6.5rem); letter-spacing: -0.04em; line-height: 0.9; }
+  .hero-byline { margin-top: 10px; margin-bottom: 14px; margin-left: 3px; }
+  .hero-byline-text { font-size: 0.72rem; letter-spacing: 0.28em; }
+  .hero-subtitle { font-size: 1rem; line-height: 1.55; margin-top: 16px; margin-left: 3px; max-width: 100%; }
+  .hero-stats-splash { margin-top: 28px; margin-left: 3px; gap: 24px; }
   .stat { text-align: left; }
+  .stat-num { font-size: 1.4rem; }
+  .stat-label { font-size: 0.6rem; letter-spacing: 0.1em; }
   .scroll-hint { display: none; }
 
-  .hero-subtitle { font-size: 0.9rem; }
-  .stat-label { font-size: 0.58rem; letter-spacing: 0.1em; }
-  .knife-left-specs { flex-direction: column; gap: 12px; }
-  .cta-row { flex-direction: column; align-items: flex-start; gap: 16px; }
-  .svc-row { flex-direction: column; align-items: flex-start; }
+  /* Tagline section */
+  .hero-tagline-section { flex-direction: column; gap: 24px; padding: 36px 24px 32px; align-items: flex-start; }
+  .ht-headline { font-size: 2.2rem; line-height: 1.05; }
+  .hero-tagline-right { width: 100%; justify-content: flex-start; }
+  .cta-row { flex-direction: column; align-items: stretch; gap: 12px; width: 100%; }
+  .btn-primary { justify-content: center; padding: 17px 28px; font-size: 0.92rem; }
+  .btn-secondary { justify-content: center; padding: 15px 28px; font-size: 0.92rem; }
+
+  /* Knife section — canvas on top */
+  .knife-section-wrap { flex-direction: column-reverse; margin: 16px 16px 0; border-radius: var(--radius-2xl); }
+  .knife-left { flex: none; padding: 24px 20px 28px; gap: 16px; }
+  .knife-left h2 { font-size: 1.7rem; }
+  .knife-left-body { font-size: 0.86rem; }
+  .knife-left-specs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 4px; }
+  .knife-left-spec-label { font-size: 0.5rem; }
+  .knife-left-spec-value { font-size: 0.75rem; }
+  .knife-showcase { flex: none; height: 56vw; min-height: 200px; max-height: 260px; }
+  .knife-sticky { position: relative; top: 0; height: 100%; }
+  .knife-divider { margin: 16px 16px 0; }
+
+  /* Process */
+  .how-card { padding: 28px 20px 32px; border-radius: var(--radius-2xl); }
+  .how-card h2 { font-size: 1.8rem; margin-bottom: 32px; }
+  .how-card .watermark { font-size: 4.5rem; top: 16px; right: -8px; }
+  .steps-grid { grid-template-columns: 1fr; gap: 24px; }
+  .step { padding-top: 18px; }
+  .step-title { font-size: 0.95rem; }
+  .step-desc { font-size: 0.82rem; }
+
+  /* Services */
+  .services-section-wrap { gap: 14px; }
+  .services-header { padding: 24px 20px; border-radius: var(--radius-2xl); flex-direction: column; gap: 16px; align-items: flex-start; }
+  .services-header h2 { font-size: 1.5rem; }
+  .services-header p { font-size: 0.83rem; margin-top: 10px; }
+  .services-header .btn-primary { width: 100%; justify-content: center; }
+  .services-cards { grid-template-columns: 1fr; gap: 10px; }
+  .service-card { padding: 20px 18px; border-radius: var(--radius-lg); }
+  .service-icon { margin-bottom: 14px; width: 38px; height: 38px; }
+  .service-name { font-size: 0.93rem; }
+  .service-price { font-size: 1.2rem; }
+  .service-desc { font-size: 0.78rem; }
+
+  /* About */
+  .about-section { grid-template-columns: 1fr; gap: 14px; }
+  .about-main { padding: 24px 20px 28px; border-radius: var(--radius-2xl); }
+  .about-main h2 { font-size: 1.6rem; margin-bottom: 18px; }
+  .about-main p { font-size: 0.87rem; line-height: 1.7; margin-bottom: 14px; }
+  .about-kit-card { padding: 18px; border-radius: var(--radius-lg); }
+  .kit-text { font-size: 0.78rem; }
+  .highlight-card { padding: 18px 20px; border-radius: var(--radius-lg); }
+
+  /* Before/After */
+  .before-after-section { padding: 24px 20px 28px; border-radius: var(--radius-2xl); }
+  .ba-header { margin-bottom: 20px; }
+  .ba-header h2 { font-size: 1.5rem; }
+  .ba-grid { grid-template-columns: 1fr; gap: 12px; }
+  .ba-card { border-radius: var(--radius-lg); }
+
+  /* Testimonials */
+  .testimonials-section { padding: 24px 20px 28px; border-radius: var(--radius-2xl); }
+  .testi-header { margin-bottom: 24px; }
+  .testi-header h2 { font-size: 1.5rem; }
+  .testi-grid { grid-template-columns: 1fr; gap: 10px; }
+  .testi-card { padding: 20px 18px; border-radius: var(--radius-lg); }
+  .testi-text { font-size: 0.85rem; }
+
+  /* FAQ */
+  .faq-section { grid-template-columns: 1fr; gap: 14px; }
+  .faq-intro { position: static; padding: 24px 20px; border-radius: var(--radius-2xl); }
+  .faq-intro h2 { font-size: 1.5rem; }
+  .faq-list { gap: 8px; }
+  .faq-item { border-radius: var(--radius-lg); }
+  .faq-question { padding: 16px 18px; }
+  .faq-q-text { font-size: 0.86rem; }
+  .faq-answer-inner { padding: 0 18px 16px; font-size: 0.81rem; }
+
+  /* Booking */
+  .booking-section { padding: 32px 20px 36px; border-radius: var(--radius-2xl); text-align: left; }
+  .booking-section h2 { font-size: 1.9rem; text-align: left; }
+  .booking-section > p { text-align: left; margin: 0 0 28px; }
+  .booking-form { max-width: 100%; }
+  .form-row { grid-template-columns: 1fr; gap: 10px; }
+  .svc-selector { padding: 14px 14px 12px; }
+  .svc-row { flex-direction: column; align-items: flex-start; gap: 8px; }
   .svc-qty { width: 100% !important; }
-  .booking-section { padding: 40px 24px; border-radius: var(--radius-lg); }
-  .before-after-section { padding: 32px 20px; border-radius: var(--radius-lg); }
-  .faq-question { padding: 18px 20px; }
-  .faq-answer-inner { padding: 0 20px 18px; }
-  footer { padding: 40px 20px; padding-bottom: calc(40px + var(--safe-bottom)); }
+  .form-submit { width: 100%; padding: 17px; font-size: 0.92rem; }
+
+  /* Footer */
+  footer { flex-direction: column; text-align: center; padding: 32px 20px; padding-bottom: calc(32px + var(--safe-bottom)); gap: 18px; }
+  .footer-links { justify-content: center; gap: 14px; flex-wrap: wrap; }
+  .footer-links a { font-size: 0.76rem; }
 }
+
+/* Large desktop */
 @media (min-width: 1800px) { body { max-width: 2200px; margin: 0 auto; } }
+
 </style>
 </head>
 <body>
@@ -501,7 +591,8 @@ footer { padding: 56px clamp(20px, 4vw, 56px); padding-bottom: calc(56px + var(-
       <a href="#book" class="btn-primary">Book a Sharpening &#8594;</a>
       <a href="#services" class="btn-secondary">See pricing</a>
     </div>
-    <p style="font-family:'DM Mono',monospace;font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--text-muted);margin-top:16px;">Hand sharpened &mdash; no grinders, ever.</p>
+    <p style="font-family:'DM Mono',monospace;font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--text-muted);margin-top:12px;width:100%;">Hand sharpened &mdash; no grinders, ever.</p>
+  </div>
   </div>
 </div>
 
@@ -1176,29 +1267,7 @@ footer { padding: 56px clamp(20px, 4vw, 56px); padding-bottom: calc(56px + var(-
     });
   }());
 
-  /* ── Hero stats — desktop restore ── */
-  (function() {
-    const stats = document.querySelector('.hero-stats-splash');
-    function applyLayout() {
-      if (window.innerWidth > 520) {
-        stats.style.position = 'absolute';
-        stats.style.bottom = '48px';
-        stats.style.right = 'clamp(24px, 5vw, 72px)';
-        stats.style.marginTop = '';
-        stats.style.marginLeft = '';
-        stats.style.justifyContent = '';
-      } else {
-        stats.style.position = 'static';
-        stats.style.bottom = '';
-        stats.style.right = '';
-        stats.style.marginTop = '36px';
-        stats.style.marginLeft = '6px';
-        stats.style.justifyContent = 'flex-start';
-      }
-    }
-    applyLayout();
-    window.addEventListener('resize', applyLayout);
-  }());
+
 
   /* ── Scroll Reveal ── */
   const revealObs = new IntersectionObserver((entries) => {
