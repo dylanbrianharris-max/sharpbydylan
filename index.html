@@ -166,7 +166,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 0 clamp
 .ht-headline { font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(2rem, 4.5vw, 4rem); line-height: 1; letter-spacing: -0.03em; color: var(--text-primary); flex: 0 0 auto; min-width: 0; }
 .ht-headline em { font-style: normal; background: linear-gradient(135deg, var(--gold), var(--gold-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
 .hero-tagline-right { flex: 0 0 auto; min-width: 0; display: flex; justify-content: center; }
-.cta-row { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; }
+.cta-row { display: flex; flex-direction: row; align-items: center; gap: 16px; flex-wrap: wrap; }
 
 .btn-primary { display: inline-flex; align-items: center; gap: 10px; background: var(--bg-card); color: var(--white); padding: 20px 40px; border-radius: 100px; font-size: 1rem; font-weight: 500; text-decoration: none; letter-spacing: 0.03em; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); white-space: nowrap; }
 .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3); }
@@ -412,11 +412,10 @@ footer { padding: 56px clamp(20px, 4vw, 56px); padding-bottom: calc(56px + var(-
 
   /* Hero */
   .hero-splash {
-    min-height: 100dvh;
-    padding: 0 24px;
-    padding-top: calc(72px + var(--safe-top));
-    padding-bottom: 48px;
-    justify-content: center;
+    min-height: 0;
+    height: auto;
+    padding: calc(72px + var(--safe-top) + 40px) 24px 48px;
+    justify-content: flex-start;
   }
   .hero-glow { width: 80vw; height: 40vh; }
   .hero-wordmark-sharp { font-size: clamp(3.2rem, 17.5vw, 6rem); letter-spacing: -0.05em; line-height: 0.9; }
@@ -438,15 +437,16 @@ footer { padding: 56px clamp(20px, 4vw, 56px); padding-bottom: calc(56px + var(-
   .btn-secondary { justify-content: center; padding: 15px 28px; font-size: 0.92rem; }
 
   /* Knife section — canvas on top */
-  .knife-section-wrap { flex-direction: column-reverse; margin: 16px 16px 0; border-radius: var(--radius-2xl); }
+  .knife-section-wrap { flex-direction: column; margin: 16px 16px 0; border-radius: var(--radius-2xl); }
   .knife-left { flex: none; padding: 24px 20px 28px; gap: 16px; }
+  #knife-canvas { position: absolute; inset: 0; width: 100% !important; height: 100% !important; }
   .knife-left h2 { font-size: 1.7rem; }
   .knife-left-body { font-size: 0.86rem; }
   .knife-left-specs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 4px; }
   .knife-left-spec-label { font-size: 0.5rem; }
   .knife-left-spec-value { font-size: 0.75rem; }
-  .knife-showcase { flex: none; height: 72vw; min-height: 240px; max-height: 320px; }
-  .knife-sticky { position: relative; top: 0; height: 100%; }
+  .knife-showcase { flex: none; height: 80vw; min-height: 260px; max-height: 360px; }
+  .knife-sticky { position: static; height: 100%; min-height: inherit; }
   .knife-divider { margin: 16px 16px 0; }
 
   /* Process */
@@ -591,7 +591,7 @@ footer { padding: 56px clamp(20px, 4vw, 56px); padding-bottom: calc(56px + var(-
       <a href="#book" class="btn-primary">Book a Sharpening &#8594;</a>
       <a href="#services" class="btn-secondary">See pricing</a>
     </div>
-    <p style="font-family:'DM Mono',monospace;font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--text-muted);margin-top:12px;width:100%;">Hand sharpened &mdash; no grinders, ever.</p>
+
   </div>
   </div>
 </div>
