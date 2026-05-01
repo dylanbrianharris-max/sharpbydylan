@@ -56,6 +56,78 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 0 clamp
 .nav-cta { background: var(--gold) !important; color: var(--bg-card) !important; padding: 10px 22px !important; border-radius: 100px !important; font-size: 0.82rem !important; font-weight: 600 !important; transition: transform 0.15s, background 0.2s, box-shadow 0.2s !important; box-shadow: 0 4px 16px rgba(201, 168, 76, 0.25) !important; }
 .nav-cta:hover { background: var(--gold-light) !important; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(201, 168, 76, 0.35) !important; }
 
+/* ── Hamburger ── */
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 8px;
+  border: none;
+  background: none;
+  -webkit-tap-highlight-color: transparent;
+  z-index: 110;
+}
+.nav-hamburger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--text-primary);
+  border-radius: 2px;
+  transition: transform 0.3s, opacity 0.3s;
+  transform-origin: center;
+}
+.nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; }
+.nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* Mobile drawer */
+.nav-drawer {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(237, 235, 230, 0.97);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  z-index: 105;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.nav-drawer.open {
+  opacity: 1;
+  pointer-events: all;
+}
+.nav-drawer ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  width: 100%;
+  padding: 0 40px;
+}
+.nav-drawer ul li a {
+  text-decoration: none;
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.8rem, 8vw, 2.6rem);
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+  display: block;
+  padding: 12px 0;
+  transition: color 0.2s;
+}
+.nav-drawer ul li a:hover { color: var(--gold); }
+.nav-drawer ul li a.drawer-cta {
+  color: var(--gold);
+  font-size: clamp(1.3rem, 6vw, 1.9rem);
+  margin-top: 12px;
+}
+
 .hero-splash { min-height: 100vh; min-height: 100dvh; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; padding: 0 clamp(24px, 5vw, 72px); position: relative; overflow: hidden; }
 .hero-splash::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--bg-page-dark), transparent); z-index: 1; }
 .hero-glow { position: absolute; top: 50%; left: 10%; transform: translate(-10%, -50%); width: 60vw; height: 60vh; background: radial-gradient(ellipse at center, rgba(201, 168, 76, 0.065) 0%, transparent 70%); pointer-events: none; z-index: 0; animation: glowPulse 4s ease-in-out infinite 1s; }
@@ -266,7 +338,6 @@ textarea.form-field { resize: none; height: 100px; }
 .form-submit:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(201, 168, 76, 0.35); }
 @keyframes formShake { 0%, 100% { transform: translateX(0); } 20% { transform: translateX(-6px); } 40% { transform: translateX(5px); } 60% { transform: translateX(-4px); } 80% { transform: translateX(3px); } }
 
-/* ── Service selector ── */
 .svc-selector { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07); border-radius: 14px; padding: 20px 20px 16px; display: flex; flex-direction: column; gap: 14px; text-align: left; }
 .svc-selector-label { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.25em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 2px; }
 .svc-row { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
@@ -292,39 +363,76 @@ footer { padding: 56px clamp(20px, 4vw, 56px); padding-bottom: calc(56px + var(-
 .footer-credit span { font-family: 'DM Mono', monospace; font-size: 0.58rem; letter-spacing: 0.12em; color: var(--text-muted); opacity: 0.5; }
 .footer-credit a { color: inherit; text-decoration: none; }
 
+/* ============================================================
+   RESPONSIVE — Existing breakpoints
+   ============================================================ */
 @media (max-width: 1100px) {
   .services-cards { grid-template-columns: repeat(2, 1fr); }
   .testi-grid     { grid-template-columns: repeat(2, 1fr); }
-  .testi-grid .testi-card:last-child { grid-column: 1 / -1; max-width: 50%; }
   .services-header { flex-direction: column; align-items: flex-start; gap: 24px; }
   .ba-grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 960px) {
   .nav-links { display: none; }
-  .hero-tagline-section { flex-direction: column; gap: 32px; }
+  .nav-hamburger { display: flex; }
+  .nav-drawer { display: flex; }
+  .hero-tagline-section { flex-direction: column; gap: 24px; padding: 48px clamp(24px, 5vw, 72px) 40px; }
   .hero-tagline-right { justify-content: flex-start; }
+  .ht-headline { font-size: clamp(1.6rem, 6vw, 3rem); }
   .knife-section-wrap { flex-direction: column; }
   .knife-left { flex: none; }
-  .knife-showcase { flex: none; height: 60vh; min-height: 300px; }
+  .knife-showcase { flex: none; height: 50vh; min-height: 280px; }
+  .knife-sticky { height: 100%; }
   .steps-grid { grid-template-columns: 1fr 1fr; }
   .about-section, .faq-section { grid-template-columns: 1fr; }
   .faq-intro { position: static; }
   .services-cards { grid-template-columns: repeat(2, 1fr); }
-  .testi-grid { grid-template-columns: 1fr; }
-  .testi-grid .testi-card:last-child { max-width: 100%; }
+  .testi-grid { grid-template-columns: repeat(2, 1fr); }
   .form-row { grid-template-columns: 1fr; }
   footer { flex-direction: column; text-align: center; }
+  .footer-links { justify-content: center; }
+}
+@media (max-width: 700px) {
+  .services-header .btn-primary { width: 100%; justify-content: center; }
+  .testi-grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 520px) {
   .steps-grid { grid-template-columns: 1fr; }
   .services-cards { grid-template-columns: 1fr; }
-  .hero-stats-splash { gap: 16px; }
+  section { padding: 32px 20px; }
+  .knife-section-wrap { margin: 40px 16px 0; }
+  .knife-divider { margin: 40px 16px 0; }
+
+  /* Hero stats — move inline on small screens */
+  .hero-stats-splash {
+    position: static;
+    margin-top: 36px;
+    margin-left: 6px;
+    opacity: 0;
+    animation: fadeIn 1s ease forwards 1.2s;
+    justify-content: flex-start;
+    gap: 28px;
+  }
+  .hero-splash {
+    padding-top: calc(72px + var(--safe-top) + 32px);
+    padding-bottom: 56px;
+    min-height: 100dvh;
+    justify-content: flex-start;
+  }
+  .stat { text-align: left; }
+  .scroll-hint { display: none; }
+
+  .hero-subtitle { font-size: 0.9rem; }
   .stat-label { font-size: 0.58rem; letter-spacing: 0.1em; }
   .knife-left-specs { flex-direction: column; gap: 12px; }
   .cta-row { flex-direction: column; align-items: flex-start; gap: 16px; }
-  .hero-subtitle { font-size: 0.85rem; }
   .svc-row { flex-direction: column; align-items: flex-start; }
   .svc-qty { width: 100% !important; }
+  .booking-section { padding: 40px 24px; border-radius: var(--radius-lg); }
+  .before-after-section { padding: 32px 20px; border-radius: var(--radius-lg); }
+  .faq-question { padding: 18px 20px; }
+  .faq-answer-inner { padding: 0 20px 18px; }
+  footer { padding: 40px 20px; padding-bottom: calc(40px + var(--safe-bottom)); }
 }
 @media (min-width: 1800px) { body { max-width: 2200px; margin: 0 auto; } }
 </style>
@@ -345,7 +453,21 @@ footer { padding: 56px clamp(20px, 4vw, 56px); padding-bottom: calc(56px + var(-
     <li><a href="#faq">FAQ</a></li>
     <li><a href="#book" class="nav-cta">Book Now</a></li>
   </ul>
+  <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- Mobile nav drawer -->
+<div class="nav-drawer" id="nav-drawer">
+  <ul>
+    <li><a href="#process" class="drawer-link">Process</a></li>
+    <li><a href="#services" class="drawer-link">Services</a></li>
+    <li><a href="#about" class="drawer-link">About</a></li>
+    <li><a href="#faq" class="drawer-link">FAQ</a></li>
+    <li><a href="#book" class="drawer-link drawer-cta">Book Now →</a></li>
+  </ul>
+</div>
 
 <section class="hero-splash">
   <div class="hero-glow"></div>
@@ -359,15 +481,16 @@ footer { padding: 56px clamp(20px, 4vw, 56px); padding-bottom: calc(56px + var(-
       <span class="hero-byline-text">BY DYLAN</span>
     </div>
     <p class="hero-subtitle">Professional whetstone knife sharpening, collected and returned to your door across Sydney.</p>
+    <!-- Stats inline on mobile (static), absolute on desktop -->
+    <div class="hero-stats-splash">
+      <div class="stat"><div class="stat-num">100+</div><div class="stat-label">Blades Sharpened</div></div>
+      <div class="stat"><div class="stat-num">5&#9733;</div><div class="stat-label">Avg Rating</div></div>
+      <div class="stat"><div class="stat-num">24h</div><div class="stat-label">Turnaround</div></div>
+    </div>
   </div>
   <div class="scroll-hint" id="scroll-hint">
     <span>Scroll</span>
     <div class="scroll-line"></div>
-  </div>
-  <div class="hero-stats-splash">
-    <div class="stat"><div class="stat-num">100+</div><div class="stat-label">Blades Sharpened</div></div>
-    <div class="stat"><div class="stat-num">5&#9733;</div><div class="stat-label">Avg Rating</div></div>
-    <div class="stat"><div class="stat-num">24h</div><div class="stat-label">Turnaround</div></div>
   </div>
 </section>
 
@@ -763,7 +886,6 @@ footer { padding: 56px clamp(20px, 4vw, 56px); padding-bottom: calc(56px + var(-
         <span class="required-dot"></span>
       </div>
 
-      <!-- Service selector -->
       <div class="svc-selector">
         <span class="svc-selector-label">Services required</span>
 
@@ -1023,6 +1145,60 @@ footer { padding: 56px clamp(20px, 4vw, 56px); padding-bottom: calc(56px + var(-
 </script>
 
 <script>
+  /* ── Mobile nav hamburger ── */
+  (function() {
+    const btn    = document.getElementById('nav-hamburger');
+    const drawer = document.getElementById('nav-drawer');
+    if (!btn || !drawer) return;
+
+    function openDrawer() {
+      btn.classList.add('open');
+      drawer.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeDrawer() {
+      btn.classList.remove('open');
+      drawer.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    btn.addEventListener('click', () => {
+      btn.classList.contains('open') ? closeDrawer() : openDrawer();
+    });
+
+    drawer.querySelectorAll('.drawer-link').forEach(link => {
+      link.addEventListener('click', closeDrawer);
+    });
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeDrawer();
+    });
+  }());
+
+  /* ── Hero stats — desktop restore ── */
+  (function() {
+    const stats = document.querySelector('.hero-stats-splash');
+    function applyLayout() {
+      if (window.innerWidth > 520) {
+        stats.style.position = 'absolute';
+        stats.style.bottom = '48px';
+        stats.style.right = 'clamp(24px, 5vw, 72px)';
+        stats.style.marginTop = '';
+        stats.style.marginLeft = '';
+        stats.style.justifyContent = '';
+      } else {
+        stats.style.position = 'static';
+        stats.style.bottom = '';
+        stats.style.right = '';
+        stats.style.marginTop = '36px';
+        stats.style.marginLeft = '6px';
+        stats.style.justifyContent = 'flex-start';
+      }
+    }
+    applyLayout();
+    window.addEventListener('resize', applyLayout);
+  }());
+
   /* ── Scroll Reveal ── */
   const revealObs = new IntersectionObserver((entries) => {
     entries.forEach((entry, i) => {
@@ -1137,7 +1313,6 @@ footer { padding: 56px clamp(20px, 4vw, 56px); padding-bottom: calc(56px + var(-
         }
       });
 
-      // Check at least one service is selected
       const anyService = bookingForm.querySelectorAll('.svc-selector input[type="checkbox"]:checked').length > 0;
       if (!anyService) {
         const sel = bookingForm.querySelector('.svc-selector');
