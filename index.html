@@ -235,6 +235,8 @@ section[id], div[id].knife-section-wrap { scroll-margin-top: 88px; }
 .service-card.rush-card { border: 1px solid var(--border-dark); }
 .service-card.rush-card:hover { border-color: rgba(255, 255, 255, 0.12); }
 .service-card.rush-card .service-price { color: var(--gold-light); }
+.travel-note { display: flex; align-items: center; gap: 10px; font-size: 0.78rem; color: var(--on-dark-low); font-weight: 300; padding: 14px 20px; background: rgba(255,255,255,0.03); border: 1px solid var(--border-dark); border-radius: 12px; }
+.travel-note::before { content: ''; display: block; width: 20px; height: 1px; background: var(--gold-dim); flex-shrink: 0; }
 
 .about-section { display: grid; grid-template-columns: 1.2fr 1fr; gap: 24px; align-items: stretch; }
 .about-main { background: var(--bg-card); border-radius: var(--radius-2xl); padding: clamp(24px, 2vw, 40px) clamp(32px, 4vw, 56px) clamp(40px, 5vw, 64px); position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: center; }
@@ -571,7 +573,6 @@ footer { padding: 56px clamp(20px, 4vw, 56px); padding-bottom: calc(56px + var(-
       <span class="hero-byline-text">BY DYLAN</span>
     </div>
     <p class="hero-subtitle">Professional hand sharpening on Japanese whetstones — collected and returned to your door across Sydney.</p>
-    <!-- Stats inline on mobile (static), absolute on desktop -->
     <div class="hero-stats-splash">
       <div class="stat"><div class="stat-num">100+</div><div class="stat-label">Blades Sharpened</div></div>
       <div class="stat"><div class="stat-num">5&#9733;</div><div class="stat-label">Avg Rating</div></div>
@@ -591,8 +592,6 @@ footer { padding: 56px clamp(20px, 4vw, 56px); padding-bottom: calc(56px + var(-
       <a href="#book" class="btn-primary">Book a Sharpening &#8594;</a>
       <a href="#services" class="btn-secondary">See pricing</a>
     </div>
-
-  </div>
   </div>
 </div>
 
@@ -635,7 +634,7 @@ footer { padding: 56px clamp(20px, 4vw, 56px); padding-bottom: calc(56px + var(-
       <div class="step">
         <div class="step-num">01 &#8212; BOOK</div>
         <div class="step-title">Request a Collection</div>
-        <div class="step-desc">Fill in the form and collection time that suits you will be confirmed.</div>
+        <div class="step-desc">Fill in the form and a collection time that suits you will be confirmed.</div>
       </div>
       <div class="step">
         <div class="step-num">02 &#8212; COLLECT</div>
@@ -670,20 +669,32 @@ footer { padding: 56px clamp(20px, 4vw, 56px); padding-bottom: calc(56px + var(-
       <div class="service-card popular">
         <div class="service-icon"><img src="knifeblock.png" alt="Knife block" style="width:32px;height:32px;object-fit:contain;"></div>
         <div class="service-name">Knife Blocks</div>
-        <div class="service-price"><sup>$</sup>9 <span style="font-size:0.9rem;">p/blade</span></div>
+        <div class="service-price"><sup>$</sup>11 <span style="font-size:0.9rem;">p/blade</span></div>
         <div class="service-desc">Per-knife pricing for household sets (4+ knives). Most popular option — great value for the whole block.</div>
       </div>
       <div class="service-card">
         <div class="service-icon">&#128298;</div>
         <div class="service-name">Premium Service — Chef's Knives</div>
-        <div class="service-price"><sup>$</sup>15</div>
+        <div class="service-price"><sup>$</sup>25</div>
         <div class="service-desc">Premier sharpening for your best chef's knives up to 40cm. Includes stropping for a mirror-finish edge.</div>
       </div>
       <div class="service-card">
         <div class="service-icon"><img src="scissors.png" alt="Scissors" style="width:32px;height:32px;object-fit:contain;filter:hue-rotate(190deg) saturate(0.6) brightness(1.4);"></div>
         <div class="service-name">Scissors</div>
-        <div class="service-price"><sup>$</sup>10</div>
+        <div class="service-price"><sup>$</sup>15</div>
         <div class="service-desc">Kitchen scissors, fabric shears, and craft scissors. Restored to clean, smooth cuts.</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">&#128295;</div>
+        <div class="service-name">Knife Repair &amp; Restoration</div>
+        <div class="service-price"><sup>$</sup>10&#8211;30</div>
+        <div class="service-desc">Chip removal, tip repair, and blade re-profiling. Restore damaged knives to optimal condition. Price depends on extent of damage — contact me for a quote.</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">&#128481;</div>
+        <div class="service-name">Specialty Blade</div>
+        <div class="service-price"><sup>$</sup>16&#8211;30</div>
+        <div class="service-desc">Hunting knives, cleavers, chisels, paring knives, and most other single-bevel or non-standard blades. Contact me first to confirm suitability.</div>
       </div>
       <div class="service-card rush-card">
         <div class="service-icon">&#128640;</div>
@@ -692,18 +703,13 @@ footer { padding: 56px clamp(20px, 4vw, 56px); padding-bottom: calc(56px + var(-
         <div class="service-desc">Need it back within hours? Rush service available when schedule permits.</div>
       </div>
       <div class="service-card">
-        <div class="service-icon">&#128481;</div>
-        <div class="service-name">Specialty Blade</div>
-        <div class="service-price"><sup>$</sup>16</div>
-        <div class="service-desc">Recurve, single-bevel, cleavers, fillet knives. Contact me first for serrated blades.</div>
-      </div>
-      <div class="service-card">
         <div class="service-icon">&#127970;</div>
         <div class="service-name">Restaurant</div>
         <div class="service-price">PoA</div>
         <div class="service-desc">Custom quotes for hospitality businesses. Regular schedules available on request.</div>
       </div>
     </div>
+    <div class="travel-note">Travel costs may apply for orders outside the Sydney metro area or below the free-delivery threshold. I'll confirm any charges before collection.</div>
   </div>
 </section>
 
@@ -908,7 +914,7 @@ footer { padding: 56px clamp(20px, 4vw, 56px); padding-bottom: calc(56px + var(-
           <div class="faq-toggle">+</div>
         </div>
         <div class="faq-answer">
-          <div class="faq-answer-inner">Yes &#8212; free pickup and delivery for orders of 3 or more knives across the Sydney metro area. For smaller orders, a collection charge may apply.</div>
+          <div class="faq-answer-inner">Yes &#8212; free pickup and delivery for orders of 5 or more knives across the Sydney metro area. For smaller orders or locations further out, a travel charge may apply &#8212; I'll always confirm costs before collection.</div>
         </div>
       </div>
       <div class="faq-item">
@@ -926,7 +932,7 @@ footer { padding: 56px clamp(20px, 4vw, 56px); padding-bottom: calc(56px + var(-
           <div class="faq-toggle">+</div>
         </div>
         <div class="faq-answer">
-          <div class="faq-answer-inner">Western and Japanese kitchen knives, chef's knives, cleavers, fillet knives, paring knives, and scissors. I don't sharpen serrated, circular or power tool blades.</div>
+          <div class="faq-answer-inner">Western and Japanese kitchen knives, chef's knives, cleavers, hunting knives, paring knives, chisels, and scissors. I don't sharpen serrated, circular, or power tool blades. Not sure if your blade qualifies? Just ask.</div>
         </div>
       </div>
       <div class="faq-item">
@@ -984,7 +990,7 @@ footer { padding: 56px clamp(20px, 4vw, 56px); padding-bottom: calc(56px + var(-
         <div class="svc-row">
           <label class="svc-check-label">
             <input type="checkbox" name="svc_block" onchange="toggleQty(this,'qty_block')">
-            <span class="svc-label-text">Knife Block &mdash; <span class="svc-price">$9/blade</span></span>
+            <span class="svc-label-text">Knife Block &mdash; <span class="svc-price">$11/blade</span></span>
           </label>
           <input type="number" name="qty_block" id="qty_block" min="1" max="99" placeholder="# knives" class="form-field svc-qty">
         </div>
@@ -992,25 +998,32 @@ footer { padding: 56px clamp(20px, 4vw, 56px); padding-bottom: calc(56px + var(-
         <div class="svc-row">
           <label class="svc-check-label">
             <input type="checkbox" name="svc_chef" onchange="toggleQty(this,'qty_chef')">
-            <span class="svc-label-text">Premium Chef's Knife &mdash; <span class="svc-price">$15/knife</span></span>
+            <span class="svc-label-text">Premium Chef's Knife &mdash; <span class="svc-price">$25/knife</span></span>
           </label>
           <input type="number" name="qty_chef" id="qty_chef" min="1" max="99" placeholder="# knives" class="form-field svc-qty">
         </div>
 
         <div class="svc-row">
           <label class="svc-check-label">
-            <input type="checkbox" name="svc_specialty" onchange="toggleQty(this,'qty_specialty')">
-            <span class="svc-label-text">Specialty Blade &mdash; <span class="svc-price">$16/blade</span></span>
+            <input type="checkbox" name="svc_scissors" onchange="toggleQty(this,'qty_scissors')">
+            <span class="svc-label-text">Scissors &mdash; <span class="svc-price">$15/pair</span></span>
           </label>
-          <input type="number" name="qty_specialty" id="qty_specialty" min="1" max="99" placeholder="# blades" class="form-field svc-qty">
+          <input type="number" name="qty_scissors" id="qty_scissors" min="1" max="99" placeholder="# pairs" class="form-field svc-qty">
         </div>
 
         <div class="svc-row">
           <label class="svc-check-label">
-            <input type="checkbox" name="svc_scissors" onchange="toggleQty(this,'qty_scissors')">
-            <span class="svc-label-text">Scissors &mdash; <span class="svc-price">$10/pair</span></span>
+            <input type="checkbox" name="svc_repair">
+            <span class="svc-label-text">Knife Repair &amp; Restoration &mdash; <span class="svc-price">$10–30</span></span>
           </label>
-          <input type="number" name="qty_scissors" id="qty_scissors" min="1" max="99" placeholder="# pairs" class="form-field svc-qty">
+        </div>
+
+        <div class="svc-row">
+          <label class="svc-check-label">
+            <input type="checkbox" name="svc_specialty" onchange="toggleQty(this,'qty_specialty')">
+            <span class="svc-label-text">Specialty Blade &mdash; <span class="svc-price">$16–30/blade</span></span>
+          </label>
+          <input type="number" name="qty_specialty" id="qty_specialty" min="1" max="99" placeholder="# blades" class="form-field svc-qty">
         </div>
 
         <div class="svc-row svc-rush-row">
@@ -1266,8 +1279,6 @@ footer { padding: 56px clamp(20px, 4vw, 56px); padding-bottom: calc(56px + var(-
       if (e.key === 'Escape') closeDrawer();
     });
   }());
-
-
 
   /* ── Scroll Reveal ── */
   const revealObs = new IntersectionObserver((entries) => {
